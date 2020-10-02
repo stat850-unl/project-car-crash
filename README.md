@@ -18,17 +18,19 @@ instead of the project proposal.
 
 ## Data Set
 
-Provide a link to your dataset here, and a description of the variables
-in the data set.
-
 https://catalog.data.gov/dataset/traffic-data/resource/e46a5cc5-ed4d-4b8d-b750-18e6c9ec570e
 
+This data is about car crashes reported on Monroe County, Indiana, from 2003 to 2015. There are more than 53.000 observations, and many variables, like: Year, month, day (of the week), type of day (week day or weekend), hour (24 hour format), collision (how many cars involved), type of injuries, primary factors (that cause accident), location reported.
 
 
 ## Potential Topics to Explore Using the Data Set
 
-Describe avenues you might explore using the data
+Take a look at the accident by date (of the week), is there any different between week days and weekend? Look at the "total", then, look at each year to find the "trend", which year has the most accident?
+
+Look at the factor causing the accidents, look at collision (how many cars involved?), is there any relation between the cars and the factors? 
+
+For a better comparison, might look at the data in the 10 years range, it can be from 2003 - 2013, or 2005 - 2015. 
 
 ## Group Members
 
-List all of the project contributors here.
+Huy Ngo.
