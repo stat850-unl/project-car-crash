@@ -1,6 +1,6 @@
 Stat 850 Project Description
 ================
-Firstname Lastname, Firstname Lastname, …
+Huy Ngo, …
 
 ## Instructions
 
@@ -20,6 +20,10 @@ instead of the project proposal.
 
 Provide a link to your dataset here, and a description of the variables
 in the data set.
+
+https://catalog.data.gov/dataset/traffic-data/resource/e46a5cc5-ed4d-4b8d-b750-18e6c9ec570e
+
+
 
 ## Potential Topics to Explore Using the Data Set
 
