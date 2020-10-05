@@ -48,10 +48,15 @@ This data is about car crashes reported on Monroe County, Indiana, from 2003 to 
 ## Potential Topics to Explore Using the Data Set
 
 •	Take a look at the accidents (sort by date and month) to see if there is any different between week day and weekend, i.e: Accident on the weekend tend to have more than week day? For a “fair” comparison, might use the average of accident. Or, can compare the weekend with each of the weekday: Monday, Tuesday…
+
 •	At first, look at the "big picture”, then look at each year to find the "trend" and find which year has the most accident occur? Might use some relevant information to support the hypothesis: Accident on that year more than other year because of: bad weather/ storm/ election year, etc.
+
 •	Then, look at the factor causing the accidents: Which one is the primary factor, what it can tell about driving habit of citizen of Monroe County?
+
 •	Look at collision (how many cars involved?), is there any relation between the number of cars involved and the factors causing accident? If so, what does it mean? Is it because of the road, the car, or the people that cause accident? 
+
 •	For a better comparison, might look at the data in the 10 years range, it can be from 2003 - 2013, or 2005 - 2015.
+
 •	The order of analyzing might change, depend on the situation.
 
 ## Group Members
