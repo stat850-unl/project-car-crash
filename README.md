@@ -21,6 +21,7 @@ instead of the project proposal.
 https://catalog.data.gov/dataset/traffic-data/resource/e46a5cc5-ed4d-4b8d-b750-18e6c9ec570e
 
 This data is about car crashes reported on Monroe County, Indiana, from 2003 to 2015. There are more than 53.000 observations and many variables: 
+
 •	Master Record Number: a nine – digits number that use for recording file.
 •	Year: Years recorded, range from 2003 to 2015.
 •	Month: 12 months format.
