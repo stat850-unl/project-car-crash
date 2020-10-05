@@ -27,7 +27,7 @@ This data is about car crashes reported on Monroe County, Indiana, from 2003 to 
 
 Take a look at the accident by date (of the week), is there any different between week days and weekend? Look at the "total", then, look at each year to find the "trend", which year has the most accident?
 
-Look at the factor causing the accidents, look at collision (how many cars involved?), is there any relation between the cars and the factors? 
+Look at the factor causing the accidents, look at collision (how many cars involved?), is there any relation between the cars and the factors causing accident? 
 
 For a better comparison, might look at the data in the 10 years range, it can be from 2003 - 2013, or 2005 - 2015. 
 
