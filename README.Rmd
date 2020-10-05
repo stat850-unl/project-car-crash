@@ -40,5 +40,5 @@ Look at the factor causing the accidents, look at collision (how many cars invol
 For a better comparison, might look at the data in the 10 years range, it can be from 2003 - 2013, or 2005 - 2015.
 
 ## Group Members
-Huy Ngo.
+Huy Ngo
 
