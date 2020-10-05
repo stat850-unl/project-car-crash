@@ -23,15 +23,25 @@ https://catalog.data.gov/dataset/traffic-data/resource/e46a5cc5-ed4d-4b8d-b750-1
 This data is about car crashes reported on Monroe County, Indiana, from 2003 to 2015. There are more than 53.000 observations and many variables: 
 
 •	Master Record Number: a nine – digits number that use for recording file.
+
 •	Year: Years recorded, range from 2003 to 2015.
+
 •	Month: 12 months format.
+
 •	Day: Specified as “day of the week”, the values is from 1 to 7.
+
 •	Type of day: Week day or weekend.
+
 •	Hour: Hour that accident happened, in the 24 hour format (not AM, PM)
+
 •	Collision: How many cars involved in an accident.
+
 •	Type of injuries: No injury/ Incapacitating…
+
 •	Primary factors (that cause accident): FOLLOWING TOO CLOSELY/ DISREGARD SIGNAL/REG SIGN/ DRIVER DISTRACTED - EXPLAIN IN NARRATIVE…
+
 •	Location reported: The corner/ intersection/ streets that accident took place.
+
 •	Latitude/ longitude: Not sure this will need, in case I want to build a map to show what places that have the most accident.
 
 
