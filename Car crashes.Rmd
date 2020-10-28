@@ -24,7 +24,6 @@ sasopts <- "-nosplash -ls 75"
 ```
 
 ```{r, echo=FALSE, message=FALSE, warning=FALSE} 
-#Reading data in R
 library(dplyr)
 library(readr)
 Crash <- read_csv("monroe-county-crash-data2003-to-2015.csv")
@@ -32,9 +31,15 @@ Crash <- read_csv("monroe-county-crash-data2003-to-2015.csv")
 
 ## Introduction
 
-- The data below is about Accidents recorded in Monroe - County, Indiana, from 2003 to 2015. There are more than 53.000 observations and many variables. But I am interested in some certain variables, like Day/ Month/ Year (that accidents occurred). How many cars involved? (Collision type). What kind of injuries they had? What is the primary reason that causes accidents to happen?  
+* The data below is about Accidents recorded in Monroe County, Indiana, from 2003 to 2015. There are more than 53.000 observations and many variables. I am interested in some certain variables, like:
+  - Day/ Month/ Year/ Hour (that accidents occurred). 
+  - How many cars involved? (Collision type). 
+  - What kind of injuries they had? 
+  - What is the primary reason that causes accidents to happen?  
 
-
+* Some questions I want to find out through the data include:
+  - Is there any specific day (or month, year) with more accidents than the other day (month/ year)? 
+  - On that day (month/ year), what is the primary factor that causes the accident? What are the highest injuries? 
 
 ```{r, engine="sashtml", engine.path=sasexe, engine.opts=sasopts, collectcode = T, error = T, echo=FALSE, message=FALSE, warning=FALSE}
 ODS HTML STYLE=HTMLBLUE;
@@ -45,9 +50,9 @@ PROC IMPORT DATAFILE = dat OUT = Crash
     GETNAMES = YES;
     GUESSINGROWS = 5000;
 RUN;
-proc print data= Crash (obs=5);
-var Year Month Day Hour Collision_Type Injury_Type Primary_Factor Reported_Location;
-title 'Table.1 Monroe County Accidents Reported from 2003 to 2015';
+proc print data= Crash (obs=10);
+var Year Month Day Hour Collision_Type Injury_Type Primary_Factor;
+title 'Table.1 Monroe County Accidents Reported from 2003 to 2015 (10 observations)';
 run;
 ```
 
