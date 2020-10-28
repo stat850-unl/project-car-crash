@@ -16,7 +16,7 @@ options(digits = 3)
 
 ![](cc.jpg)
 
-- The data I am using in this project is: Accidents recorded in Monroe County, Indiana, from 2003 to 2015. There are more than 53.000 observations and many variables. But I am interested in some certain variables, like:
+- The data I am using in this project is: Accidents recorded in Monroe County, Indiana, from 2003 to 2015. There are more than 53.000 observations and many variables. I am interested in some certain variables, like:
   + Day/ Month/ Year (that accidents occurred)
   + How many cars involved? (Collision type)
   + What kind of injuries they had? 
