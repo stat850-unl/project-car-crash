@@ -26,15 +26,37 @@ sasopts <- "-nosplash -ls 75"
 
 ## Introduction
 
-```{r, fig.width = 12, fig.height = 16} 
-#Reading data
+- This data is about Accidents recorded 
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE} 
+#Reading data in R
 library(dplyr)
 library(readr)
 Crash <- read_csv("monroe-county-crash-data2003-to-2015.csv")
-```
+head(Crash,10)
 
+```
 
 ```{r}
-head(Crash,10)
+
 ```
 
+## Methods
+
+
+## Analysis
+```{r, engine="sashtml", engine.path=sasexe, engine.opts=sasopts, collectcode = T, error = T, echo=FALSE, message=FALSE, warning=FALSE}
+ODS HTML STYLE=HTMLBLUE;
+filename dat "monroe-county-crash-data2003-to-2015.csv";
+PROC IMPORT DATAFILE = dat OUT = Crash
+    DBMS = CSV 
+    REPLACE; 
+    GETNAMES = YES;
+    GUESSINGROWS = 5000;
+RUN;
+
+title "when and how";
+PROC SGPLOT data=Crash;
+SCATTER x = Year y = Primary_Factor / Group = Month;
+RUN;    
+```
