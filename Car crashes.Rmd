@@ -1,0 +1,40 @@
+---
+title: "Untitled"
+author: "Huy Ngo"
+date: "10/27/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+options(digits = 3)
+```
+
+```{r load-sas-libraries, echo = F, message = F, warning = F}
+
+library(SASmarkdown)
+sas_enginesetup(sashtml=sashtml)
+
+sasexe <- "C:/Program Files/SASHome/SASFoundation/9.4/sas.exe"
+sasopts <- "-nosplash -ls 75"
+
+# Linux options (for grading, please leave this in!)
+# sasexe <- "/usr/local/SASHome/SASFoundation/9.4/bin/sas_en"
+# sasopts <- "-ls 75"
+```
+
+
+## Introduction
+
+```{r, fig.width = 12, fig.height = 16} 
+#Reading data
+library(dplyr)
+library(readr)
+Crash <- read_csv("monroe-county-crash-data2003-to-2015.csv")
+```
+
+
+```{r}
+head(Crash,10)
+```
+
