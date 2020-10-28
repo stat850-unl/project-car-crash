@@ -1,0 +1,56 @@
+---
+title: "Cars Crash"
+author: "Huy Ngo"
+date: "10/28/2020"
+output: slidy_presentation
+  
+  
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+options(digits = 3)
+```
+
+## Introduction
+
+![](cc.jpg)
+
+- The data I am using in this project is: Accidents recorded in Monroe County, Indiana, from 2003 to 2015. There are more than 53.000 observations and many variables. But I am interested in some certain variables, like:
+  + Day/ Month/ Year (that accidents occurred)
+  + How many cars involved? (Collision type)
+  + What kind of injuries they had? 
+  + What is the primary reason that causes accidents to happen?
+
+## Data
+
+```{r load-sas-libraries, echo = F, message = F, warning = F}
+
+library(SASmarkdown)
+sas_enginesetup(sashtml=sashtml)
+
+sasexe <- "C:/Program Files/SASHome/SASFoundation/9.4/sas.exe"
+sasopts <- "-nosplash -ls 75"
+
+# Linux options (for grading, please leave this in!)
+# sasexe <- "/usr/local/SASHome/SASFoundation/9.4/bin/sas_en"
+# sasopts <- "-ls 75"
+```
+
+```{r, engine="sashtml", engine.path=sasexe, engine.opts=sasopts, collectcode = T, error = T, echo=FALSE, message=FALSE, warning=FALSE}
+ODS HTML STYLE=HTMLBLUE;
+filename dat "monroe-county-crash-data2003-to-2015.csv";
+PROC IMPORT DATAFILE = dat OUT = Crash
+    DBMS = CSV 
+    REPLACE; 
+    GETNAMES = YES;
+    GUESSINGROWS = 5000;
+RUN;
+proc print data= Crash (obs=5);
+var Year Month Day Collision_Type Injury_Type Primary_Factor;
+title 'Monroe County Accidents Reported from 2003 to 2015';
+run;
+```
+
+
+
