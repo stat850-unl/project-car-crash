@@ -31,7 +31,10 @@ Crash <- read_csv("monroe-county-crash-data2003-to-2015.csv")
 
 ## Introduction
 
-* The data below is about Accidents recorded in Monroe County, Indiana, from 2003 to 2015. There are more than 53.000 observations and many variables. I am interested in some certain variables, like:
+
+
+
+* The data use in this project is accidents recorded in Monroe County, Indiana, from 2003 to 2015. There are more than 53.000 observations and many variables.But I am interested in some certain variables, like:
   - Day/ Month/ Year/ Hour (that accidents occurred). 
   - How many cars involved? (Collision type). 
   - What kind of injuries they had? 
@@ -59,32 +62,35 @@ run;
   - On that day (month/ year), what is the primary factor that causes the accident? What are the highest injuries? 
   
 
-```{r}
-
-```
-
 ## Methods
 
-- First, take a look at the accidents recorded through year by create a frequency table. Then, create a bar graph so we can visualize it.
 
+
+
+## Analysis
+
+The accidents recorded through year by create a frequency table. Then, create a bar graph so we can visualize it.
+
+```{r, engine="sashtml", engine.path=sasexe, engine.opts=sasopts, collectcode = T, error = T, echo=FALSE, message=FALSE, warning=FALSE}
+ODS HTML STYLE=HTMLBLUE;
+title 'Table.2. Accidents frequency through years';
+PROC FREQ DATA=Crash;
+    TABLE Year;
+output out = YE;
+RUN;
+Proc print data = YE;
+run;
+```
 
 ```{r, echo=FALSE, message=FALSE, warning=FALSE}
 library(ggplot2)
-
-YE <- table(Crash$Year)
-YE
-
 ggplot(Crash, aes(x = Year)) + 
   geom_bar(fill="steelblue")+
   geom_text(aes(Year, 6000, label=Year))+
   theme_minimal()
 ```
 
-From the table and the chart above, we see that 2003 has the highest accidents reported. Now, we will look at the number of accidents by months, follow the year of 2003 only:
-
-
-## Analysis
-
+From the table and the chart above, we see that 2003 has the highest accidents reported. Now, we will look at the number of accidents by months, follow the year of 2003 only: 
 
 
 ```{r, engine="sashtml", engine.path=sasexe, engine.opts=sasopts, collectcode = T, error = T, echo=FALSE, message=FALSE, warning=FALSE}
