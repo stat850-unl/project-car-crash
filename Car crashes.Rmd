@@ -75,7 +75,7 @@ run;
   - Look at Result. 1 and find the primary factor for accidents (Call it Result. 9)
   - Compare Result. 6 and Result. 7. Are they the same? If not, explain.
 
-## Analysis
+## Results
 
 - The accidents recorded through year by create a frequency table. Then, create a bar graph so we can visualize it.
 
