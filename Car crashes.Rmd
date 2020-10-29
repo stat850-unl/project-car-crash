@@ -76,6 +76,7 @@ YE
 
 ggplot(Crash, aes(x = Year)) + 
   geom_bar(fill="steelblue")+
+  geom_text(aes(Year, 6000, label=Year))+
   theme_minimal()
 ```
 

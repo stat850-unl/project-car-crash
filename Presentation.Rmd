@@ -12,8 +12,7 @@ output:
 knitr::opts_chunk$set(echo = FALSE)
 options(digits = 3)
 ```
-## Accident happened
-
+## Cars Crash
 ![](cc.jpg)
 
 ## Introduction 
@@ -53,17 +52,17 @@ title 'Monroe County Accidents Reported from 2003 to 2015';
 run;
 ```
 
-## Topic ideas: {,smaller}
+## Topic Ideas: {.smaller}
 
 - Some questions I want to find out through the data include:
   + Which year has the highest rate of accident? On what month? Is that month consistent for all other years? 
   + Is there any specific day (or month, year) with more accidents than the other day (month/ year)? 
   + On that day (month/ year), what is the primary factor that causes the accident? What are the highest injuries? 
   
-## Total accidents by year {.smaller}
+## Total Accidents By Years {.smaller}
 
 
-```{r, echo=FALSE, message=FALSE, warning=FALSE}
+```{r, fig.width= 8, echo=FALSE, message=FALSE, warning=FALSE}
 library(ggplot2)
 library(dplyr)
 library(readr)
@@ -72,5 +71,6 @@ YE <- table(Crash$Year)
 YE
 ggplot(Crash, aes(x = Year)) + 
   geom_bar(fill="steelblue")+
+  geom_text(aes(Year, 6000, label=Year))+
   theme_minimal()
 ```
