@@ -74,6 +74,7 @@ run;
 * Among the years, what is the primary factor that cause accidents? (Call it Result. 8)
   - Look at Result. 1 and find the primary factor for accidents (Call it Result. 9)
   - Compare Result. 6 and Result. 7. Are they the same? If not, explain.
+* Look at the relation between primary factor and number of car involved/ month/ day/ hour. What can we conclude about driving habbit of citizen of Monroe County?
 
 ## Results
 
