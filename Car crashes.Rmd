@@ -37,11 +37,6 @@ Crash <- read_csv("monroe-county-crash-data2003-to-2015.csv")
   - What kind of injuries they had? 
   - What is the primary reason that causes accidents to happen?  
 
-* Some questions I want to find out through the data include:
-  - Which year has the highest rate of accident? On what month? Is that month consistent for all other years? 
-  - Is there any specific day (or month, year) with more accidents than the other day (month/ year)? 
-  - On that day (month/ year), what is the primary factor that causes the accident? What are the highest injuries? 
-
 ```{r, engine="sashtml", engine.path=sasexe, engine.opts=sasopts, collectcode = T, error = T, echo=FALSE, message=FALSE, warning=FALSE}
 ODS HTML STYLE=HTMLBLUE;
 filename dat "monroe-county-crash-data2003-to-2015.csv";
@@ -53,10 +48,16 @@ PROC IMPORT DATAFILE = dat OUT = Crash
 RUN;
 proc print data= Crash (obs=10);
 var Year Month Day Hour Collision_Type Injury_Type Primary_Factor;
-title 'Table.1 Monroe County Accidents Reported from 2003 to 2015 (10 observations)';
+title 'Table.1. Monroe County Accidents Reported from 2003 to 2015 (10 observations)';
 run;
 ```
 
+
+* Some questions I want to find out through the data include:
+  - Which year has the highest rate of accident? On what month? Is that month consistent for all other years? 
+  - Is there any specific day (or month, year) with more accidents than the other day (month/ year)? 
+  - On that day (month/ year), what is the primary factor that causes the accident? What are the highest injuries? 
+  
 
 ```{r}
 
@@ -64,18 +65,21 @@ run;
 
 ## Methods
 
+- First, take a look at the accidents recorded through year by create a frequency table. Then, create a bar graph so we can visualize it.
 
 
-
-```{r, fig.width = 10, echo=FALSE, message=FALSE, warning=FALSE}
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
 library(ggplot2)
 
-AM <- table(Crash$Year)
-AM
+YE <- table(Crash$Year)
+YE
 
 ggplot(Crash, aes(x = Year)) + 
-  geom_bar()
+  geom_bar(fill="steelblue")+
+  theme_minimal()
 ```
+
+From the table and the chart above, we see that 2003 has the highest accidents reported. Now, we will look at the number of accidents by months, follow the year of 2003 only:
 
 
 ## Analysis
