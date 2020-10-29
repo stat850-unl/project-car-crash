@@ -1,7 +1,7 @@
 ---
 title: "Project Report: Cars Crash"
 author: "Huy Ngo"
-date: "10/27/2020"
+date: "Fall 2020"
 output: html_document
 ---
 
@@ -38,6 +38,7 @@ Crash <- read_csv("monroe-county-crash-data2003-to-2015.csv")
   - What is the primary reason that causes accidents to happen?  
 
 * Some questions I want to find out through the data include:
+  - Which year has the highest rate of accident? On what month? Is that month consistent for all other years? 
   - Is there any specific day (or month, year) with more accidents than the other day (month/ year)? 
   - On that day (month/ year), what is the primary factor that causes the accident? What are the highest injuries? 
 
@@ -64,7 +65,23 @@ run;
 ## Methods
 
 
+
+
+```{r, fig.width = 10, echo=FALSE, message=FALSE, warning=FALSE}
+library(ggplot2)
+
+AM <- table(Crash$Year)
+AM
+
+ggplot(Crash, aes(x = Year)) + 
+  geom_bar()
+```
+
+
 ## Analysis
+
+
+
 ```{r, engine="sashtml", engine.path=sasexe, engine.opts=sasopts, collectcode = T, error = T, echo=FALSE, message=FALSE, warning=FALSE}
 ODS HTML STYLE=HTMLBLUE;
 filename dat "monroe-county-crash-data2003-to-2015.csv";
