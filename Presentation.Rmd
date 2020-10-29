@@ -27,6 +27,7 @@ options(digits = 3)
 ## Introduction 
 
 - Some questions I want to find out through the data include:
+  + Which year has the highest rate of accident? On what month? Is that month consistent for all other years? 
   + Is there any specific day (or month, year) with more accidents than the other day (month/ year)? 
   + On that day (month/ year), what is the primary factor that causes the accident? What are the highest injuries? 
 
