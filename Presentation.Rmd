@@ -24,13 +24,6 @@ options(digits = 3)
   + What kind of injuries they had? 
   + What is the primary reason that causes accidents to happen?
   
-## Introduction 
-
-- Some questions I want to find out through the data include:
-  + Which year has the highest rate of accident? On what month? Is that month consistent for all other years? 
-  + Is there any specific day (or month, year) with more accidents than the other day (month/ year)? 
-  + On that day (month/ year), what is the primary factor that causes the accident? What are the highest injuries? 
-
 ## Data {.smaller} 
 ```{r load-sas-libraries, echo = F, message = F, warning = F}
 
@@ -60,5 +53,24 @@ title 'Monroe County Accidents Reported from 2003 to 2015';
 run;
 ```
 
+## Topic ideas: {,smaller}
+
+- Some questions I want to find out through the data include:
+  + Which year has the highest rate of accident? On what month? Is that month consistent for all other years? 
+  + Is there any specific day (or month, year) with more accidents than the other day (month/ year)? 
+  + On that day (month/ year), what is the primary factor that causes the accident? What are the highest injuries? 
+  
+## Total accidents by year {.smaller}
 
 
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+library(ggplot2)
+library(dplyr)
+library(readr)
+Crash <- read_csv("monroe-county-crash-data2003-to-2015.csv")
+YE <- table(Crash$Year)
+YE
+ggplot(Crash, aes(x = Year)) + 
+  geom_bar(fill="steelblue")+
+  theme_minimal()
+```
