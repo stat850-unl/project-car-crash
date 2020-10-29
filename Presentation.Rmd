@@ -14,7 +14,7 @@ options(digits = 3)
 ```
 ## Introduction {.smaller}
   - Car accidents happen every day. 
-  - There are many reasons for two or more cars colliding.
+  - There are many reasons for two or more cars colliding with each other.
   
   ![](cc.jpg)
   
