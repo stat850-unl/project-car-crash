@@ -58,23 +58,24 @@ run;
   - Which year has the highest rate of accident? On what month? Is that month consistent for all other years? 
   - Is there any specific day (or month, year) with more accidents than the other day (month/ year)? 
   - On that day (month/ year), what is the primary factor that causes the accident? What are the highest injuries? 
+  - What can we conclude about driving habit of citizen of Monroe county?
   
 ## Methods
 
-* Find which year has the highest accidents. (Call it Result. 1)
-* Among the years, which month has the highest accidents? (Call it Result. 2)
-  - Look at the year found in Result. 1, then, look at the month which highest accidents (Call it Result. 3). 
-  - Is Result. 3 the same as Result. 2? Explain.
-* Among the years, which type of day has more accidents, week day or weekend? (Call it Result. 4)
-  - Look at Result. 1 and find which type of day has more accidents (Call it Result. 5). 
-  - Compare Result. 5 and Result. 4. Are they the same? If not, explain.
-* Among the years, which hour (in a 24 hour format) has the highest accidents? (Call it Result. 6)
-  - Look at Result. 1 and find which hour has the highest accidents (Call it Result. 7)
-  - Compare Result. 6 and Result. 7. Are they the same? If not, explain.
+* Find which year has the highest accidents. Call it Result. 1
+* Among the years, find the month that has the highest accidents. Call it Result. 2
+  - Look at the year found in Result. 1, then, find the month which highest accidents Call it Result. 3. 
+  - Compare Result. 3 with Result. 2. Explain.
+* Among the years, find the day that has more accidents, identify if it week day or weekend. Call it Result. 4
+  - Look at Result. 1 and find which type of day has more accidents. Call it Result. 5. 
+  - Compare Result. 5 and Result. 4. Explain.
+* Among the years, find the hour (in a 24 hour format) that has the highest accidents. Call it Result. 6
+  - Look at Result. 1 and find which hour has the highest accidents. Call it Result. 7
+  - Compare Result. 6 and Result. 7. Explain.
 * Among the years, what is the primary factor that cause accidents? (Call it Result. 8)
   - Look at Result. 1 and find the primary factor for accidents (Call it Result. 9)
   - Compare Result. 6 and Result. 7. Are they the same? If not, explain.
-* Look at the relation between primary factor and number of car involved/ month/ day/ hour. What can we conclude about driving habbit of citizen of Monroe County?
+* Look at the relation between primary factor and number of car involved/ month/ day/ hour. What can we conclude about driving habit of citizen of Monroe County?
 
 ## Results
 
