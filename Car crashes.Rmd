@@ -26,6 +26,7 @@ sasopts <- "-nosplash -ls 75"
 ```{r, echo=FALSE, message=FALSE, warning=FALSE} 
 library(dplyr)
 library(readr)
+library(ggplot2)
 Crash <- read_csv("monroe-county-crash-data2003-to-2015.csv")
 ```
 
