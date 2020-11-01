@@ -32,7 +32,7 @@ Crash <- read_csv("monroe-county-crash-data2003-to-2015.csv")
 
 ## Introduction
 
-* Motor vehicles have made rapid economic, social, and cultural progress in the country. Although they are an indispensable part of modern life, they also carry risks that affect human life. Every day, with hundreds of millions of car trips moving continuously, it means that the number of accidents is not small. The cause of the accident is uncountable. Meanwhile, the development of cell phones has made it harder to concentrate on driving.
+* Automobile have made rapid economic, social, and cultural progress in our country. Although  motor vehicles are an indispensable part of modern life, they also carry risks that affect human life. Every day, with hundreds of millions of car trips moving continuously, it means that the number of accidents is not small. The cause of the accident is uncountable. Meanwhile, the development of cell phones has made it harder to concentrate on driving.
 
 * The data use in this project is accidents recorded in Monroe County, Indiana, from 2003 to 2015. There are more than 53.000 observations (accidents reported) and many variables.But I am interested in some certain variables, like:
   - Day/ Month/ Year/ Hour (that accidents occurred). 
@@ -93,24 +93,31 @@ Proc print data = YE;
 run;
 ```
 
-- From the table above, we see that 2003 has the highest accidents reported. Now, we will look at the number of accidents by months, follow the year of 2003 only: 
+- From the table above, we see that the year which highest cases reported is 2003 (4625 cases). We then look at the number of accidents month by month in that year only
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+Month<-filter(Crash, Year == "2003")
+MO<-table(Month$Month)
+MO
+```
+
+- October has the most accidents reported (477). Next we will compare with the "total" accidents reported from 2003 to 2015, month by months:
 
 ```{r, echo=FALSE, message=FALSE, warning=FALSE, figures-side, fig.show="hold", out.width="50%"}
-Month<-filter(Crash, Year == "2003")
 ggplot(Month, aes(x = Month)) + 
   geom_bar(fill="steelblue")+
   geom_text(aes(Month, 600, label=Month))+
-  ggtitle("Accidents recorded in 2003 month by month") +
+  ggtitle("Fig. 1. Accidents in 2003, month by month") +
   theme_minimal()
 
 ggplot(Crash, aes(x=Month))+
   geom_bar(fill="steelblue")+
   geom_text(aes(Month, 6000, label=Month))+
-  ggtitle("Accidents recorded from 2003 to 2015 month by month") +
+  ggtitle("Fig. 2. Accidents from 2003 to 2015, month by month") +
   theme_minimal()
 ```
 
-We see that October has the highest accidents occured.
+
 
 
 ```{r, engine="sashtml", engine.path=sasexe, engine.opts=sasopts, collectcode = T, error = T, echo=FALSE, message=FALSE, warning=FALSE}

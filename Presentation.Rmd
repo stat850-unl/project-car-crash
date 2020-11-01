@@ -3,7 +3,6 @@ title: "Project: Cars Crash"
 author: "Huy Ngo"
 output: 
   ioslides_presentation:
-    incremental: true
     logo: ca.png
     biglogo: ca.png
 ---
@@ -54,7 +53,6 @@ run;
   + On that day (month/ year), what is the primary factor that causes the accident? What are the highest injuries? 
   
 ## Total Accidents By Years {.smaller}
-- We see that 2003 have the highest accidents compare to other years.  
 - 
 ```{r, fig.width= 8, `results = FALSE`, echo=FALSE, message=FALSE, warning=FALSE}
 library(ggplot2)
@@ -68,3 +66,4 @@ ggplot(Crash, aes(x = Year)) +
   geom_text(aes(Year, 6000, label=Year))+
   theme_minimal()
 ```
+- We see that 2003 have the highest accidents compare to other years.
