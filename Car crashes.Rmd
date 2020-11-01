@@ -72,10 +72,10 @@ run;
 * Among the years, find the hour (in a 24 hour format) that has the highest accidents. Call it Result. 6
   - Look at Result. 1 and find which hour has the highest accidents. Call it Result. 7
   - Compare Result. 6 and Result. 7. Explain.
-* Among the years, what is the primary factor that cause accidents? (Call it Result. 8)
-  - Look at Result. 1 and find the primary factor for accidents (Call it Result. 9)
-  - Compare Result. 6 and Result. 7. Are they the same? If not, explain.
-* Look at the relation between primary factor and number of car involved/ month/ day/ hour. What can we conclude about driving habit of citizen of Monroe County?
+* Among the years, find the primary factor that cause accidents. Call it Result. 8
+  - Look at Result. 1 and find the primary factor for accidents. Call it Result. 9
+  - Compare Result. 8 and Result. 9. Explain.
+* Look at the relation between primary factor and number of car involved/ month/ day/ hour. Draw conclusion.
 
 ## Results
 
@@ -92,15 +92,24 @@ Proc print data = YE;
 run;
 ```
 
-```{r, echo=FALSE, message=FALSE, warning=FALSE}
-library(ggplot2)
-ggplot(Crash, aes(x = Year)) + 
+- From the table above, we see that 2003 has the highest accidents reported. Now, we will look at the number of accidents by months, follow the year of 2003 only: 
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE, figures-side, fig.show="hold", out.width="50%"}
+Month<-filter(Crash, Year == "2003")
+ggplot(Month, aes(x = Month)) + 
   geom_bar(fill="steelblue")+
-  geom_text(aes(Year, 6000, label=Year))+
+  geom_text(aes(Month, 600, label=Month))+
+  ggtitle("Accidents recorded in 2003 month by month") +
+  theme_minimal()
+
+ggplot(Crash, aes(x=Month))+
+  geom_bar(fill="steelblue")+
+  geom_text(aes(Month, 6000, label=Month))+
+  ggtitle("Accidents recorded from 2003 to 2015 month by month") +
   theme_minimal()
 ```
 
-- From the table and the chart above, we see that 2003 has the highest accidents reported. Now, we will look at the number of accidents by months, follow the year of 2003 only: 
+We see that October has the highest accidents occured.
 
 
 ```{r, engine="sashtml", engine.path=sasexe, engine.opts=sasopts, collectcode = T, error = T, echo=FALSE, message=FALSE, warning=FALSE}
