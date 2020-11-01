@@ -64,7 +64,7 @@ Crash <- read_csv("monroe-county-crash-data2003-to-2015.csv")
 YE <- table(Crash$Year)
 YE
 ggplot(Crash, aes(x = Year)) + 
-  geom_bar(fill="steelblue")+
+  geom_bar(fill="red")+
   geom_text(aes(Year, 6000, label=Year))+
   theme_minimal()
 ```
