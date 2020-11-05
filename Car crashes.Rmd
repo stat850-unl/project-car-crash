@@ -61,6 +61,8 @@ run;
   - On that day (month/ year), what is the primary factor that causes the accident? What are the highest injuries? 
   - What can we conclude about driving habit of citizen of Monroe county?
   
+> Can you answer any of these questions graphically to identify trends? It's not just single-day results that matter, it's the overall trends of which days are likely to result in more crashes.
+  
 ## Methods
 
 * Find which year has the highest accidents. Call it Result. 1
@@ -78,6 +80,32 @@ run;
   - Compare Result. 8 and Result. 9. Explain.
 * Look at the relation between primary factor and number of car involved/ month/ day/ hour. Draw conclusion.
 
+> I think this is a decent strategy, but I would use either graphical exploration or a statistical model (or both) to do the exploration, instead of looking for single days.
+
+```{r}
+library(lubridate)
+library(stringr)
+tmp <- Crash %>%
+  mutate(hm = sprintf("%04d", Hour),
+         hour = str_sub(hm, 1, 2) %>% parse_number(),
+         minute = str_sub(hm, 3, 4) %>% parse_number()) %>%
+  mutate(date = make_datetime(Year, Month, Day, hour, minute),
+         wday = wday(date, label = T),
+         wday_dec = as.numeric(wday(date)) + hour/24)
+
+
+ggplot(tmp, aes(x = date)) + 
+  geom_line(stat = "count", aes(y = ..count..))
+  
+ggplot(tmp, aes(x = wday_dec)) + 
+  geom_line(stat = "count", aes(y = ..count..))
+
+ggplot(tmp, aes(x = hour, color = wday)) + 
+  geom_line(stat = "count", aes(y = ..count..))
+```
+
+> Note the lack of bar charts! Also, I would have expected different patterns on Saturday and Sunday, so it's a bit odd that those aren't showing up.
+
 ## Results
 
 - The accidents recorded through year by create a frequency table. Then, create a bar graph so we can visualize it.
@@ -92,6 +120,8 @@ RUN;
 Proc print data = YE;
 run;
 ```
+
+> Bar charts aren't the best way to visualize temporal data! You can also use line charts, and even create lines by day!
 
 - From the table above, we see that the year which highest cases reported is 2003 (4625 cases). We then look at the number of accidents month by month in that year only
 
@@ -117,6 +147,7 @@ ggplot(Crash, aes(x=Month))+
   theme_minimal()
 ```
 
+> You could use the latitude and longitude to animate the accidents as they happen, if you wanted to do so. That might be pretty cool to see, and there are some awesome animation/gif packages that work nicely with e.g. ggplot2.
 
 
 
