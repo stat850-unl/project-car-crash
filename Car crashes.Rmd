@@ -102,6 +102,18 @@ ggplot(tmp, aes(x = hour, color = wday)) +
 
 > Note the lack of bar charts! Also, I would have expected different patterns on Saturday and Sunday, so it's a bit odd that those aren't showing up.
 
+```{r}
+library(plotly)
+
+p <- tmp %>%
+  group_by(wday_dec, `Collision Type`, Year) %>%
+  summarize(count = n()) %>%
+  ungroup() %>%
+  ggplot(aes(x = wday_dec, y = count, color = `Collision Type`)) + 
+  geom_line(aes(frame = Year)) 
+ggplotly(p)
+```
+
 ## Results
 
 - The accidents recorded through year by create a frequency table. Then, create a bar graph so we can visualize it.
