@@ -82,7 +82,7 @@ run;
 
 > I think this is a decent strategy, but I would use either graphical exploration or a statistical model (or both) to do the exploration, instead of looking for single days.
 
-```{r}
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
 library(lubridate)
 library(dplyr)
 library(stringr)
@@ -104,14 +104,14 @@ ggplot(tmp, aes(x = hour, color = wday)) +
 
 > Note the lack of bar charts! Also, I would have expected different patterns on Saturday and Sunday, so it's a bit odd that those aren't showing up.
 
-```{r}
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
 library(plotly)
 
 p <- tmp %>%
-  group_by(wday_dec, `Collision Type`, Year) %>%
+  group_by(hour, `Collision Type`, Year) %>%
   summarize(count = n()) %>%
   ungroup() %>%
-  ggplot(aes(x = wday_dec, y = count, color = `Collision Type`)) + 
+  ggplot(aes(x = hour, y = count, color = `Collision Type`)) + 
   geom_line(aes(frame = Year)) 
 ggplotly(p)
 ```
