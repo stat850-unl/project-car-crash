@@ -89,14 +89,10 @@ tmp <- Crash %>%
   mutate(hm = sprintf("%04d", Hour),
          hour = str_sub(hm, 1, 2) %>% parse_number(),
          minute = str_sub(hm, 3, 4) %>% parse_number()) %>%
-  mutate(date = make_datetime(Year, Month, Day, hour, minute),
-         wday = wday(date, label = T),
-         wday_dec = as.numeric(wday(date)) + hour/24)
+  mutate(wday = c("Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday")[Day],
+         wday_dec = Day + hour/24)
 
 
-ggplot(tmp, aes(x = date)) + 
-  geom_line(stat = "count", aes(y = ..count..))
-  
 ggplot(tmp, aes(x = wday_dec)) + 
   geom_line(stat = "count", aes(y = ..count..))
 
