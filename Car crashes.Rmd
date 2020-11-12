@@ -84,7 +84,9 @@ run;
 
 ```{r}
 library(lubridate)
+library(dplyr)
 library(stringr)
+library(plotly)
 tmp <- Crash %>%
   mutate(hm = sprintf("%04d", Hour),
          hour = str_sub(hm, 1, 2) %>% parse_number(),
@@ -145,10 +147,10 @@ ggplot(Crash, aes(x=Month))+
   geom_text(aes(Month, 6000, label=Month))+
   ggtitle("Fig. 2. Accidents from 2003 to 2015, month by month") +
   theme_minimal()
+
 ```
 
 > You could use the latitude and longitude to animate the accidents as they happen, if you wanted to do so. That might be pretty cool to see, and there are some awesome animation/gif packages that work nicely with e.g. ggplot2.
-
 
 
 ```{r, engine="sashtml", engine.path=sasexe, engine.opts=sasopts, collectcode = T, error = T, echo=FALSE, message=FALSE, warning=FALSE}
