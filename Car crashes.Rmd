@@ -27,6 +27,7 @@ sasopts <- "-nosplash -ls 75"
 library(dplyr)
 library(readr)
 library(ggplot2)
+library(plotly)
 Crash <- read_csv("monroe-county-crash-data2003-to-2015.csv")
 ```
 
@@ -108,10 +109,10 @@ ggplot(tmp, aes(x = hour, color = wday)) +
 library(plotly)
 
 p <- tmp %>%
-  group_by(hour, `Collision Type`, Year) %>%
+  group_by(hour, wday, Year) %>%
   summarize(count = n()) %>%
   ungroup() %>%
-  ggplot(aes(x = hour, y = count, color = `Collision Type`)) + 
+  ggplot(aes(x = hour, y = count, color = wday)) + 
   geom_line(aes(frame = Year)) 
 ggplotly(p)
 ```
@@ -136,25 +137,27 @@ run;
 - From the table above, we see that the year which highest cases reported is 2003 (4625 cases). We then look at the number of accidents month by month in that year only
 
 ```{r, echo=FALSE, message=FALSE, warning=FALSE}
+
 Month<-filter(Crash, Year == "2003")
-MO<-table(Month$Month)
-MO
-```
-
-- October has the most accidents reported (477). Next we will compare with the "total" accidents reported from 2003 to 2015, month by months:
-
-```{r, echo=FALSE, message=FALSE, warning=FALSE, figures-side, fig.show="hold", out.width="50%"}
 ggplot(Month, aes(x = Month)) + 
-  geom_bar(fill="steelblue")+
+  geom_line(stat = "count", aes(y = ..count..))+
   geom_text(aes(Month, 600, label=Month))+
   ggtitle("Fig. 1. Accidents in 2003, month by month") +
   theme_minimal()
+```
 
-ggplot(Crash, aes(x=Month))+
-  geom_bar(fill="steelblue")+
-  geom_text(aes(Month, 6000, label=Month))+
-  ggtitle("Fig. 2. Accidents from 2003 to 2015, month by month") +
-  theme_minimal()
+- October has the most accidents reported (477) in 2003. 
+- We then look at the overall trends of which month are likely to result in more crashes.
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+library(plotly)
+p <- tmp %>%
+  group_by(Month, Year) %>%
+  summarize(count = n()) %>%
+  ungroup() %>%
+  ggplot(aes(x = Month, y = count)) + 
+  geom_line(aes(frame = Year)) 
+ggplotly(p)
 
 ```
 
@@ -173,6 +176,13 @@ RUN;
 
 ```
 
+```{r, fig.height=20}
+library(forcats)
+ggplot(Month, aes(x = fct_rev(fct_infreq(`Primary Factor`)))) + 
+  geom_bar()+
+  ggtitle("Fig. 1. Accidents in 2003, month by month") +
+  theme_minimal()+ coord_flip()
+```
 
 
 ## Conclusion
