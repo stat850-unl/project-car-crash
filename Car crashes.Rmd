@@ -31,6 +31,19 @@ library(plotly)
 Crash <- read_csv("monroe-county-crash-data2003-to-2015.csv")
 ```
 
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+library(lubridate)
+library(dplyr)
+library(stringr)
+library(plotly)
+tmp <- Crash %>%
+  mutate(hm = sprintf("%04d", Hour),
+         hour = str_sub(hm, 1, 2) %>% parse_number(),
+         minute = str_sub(hm, 3, 4) %>% parse_number()) %>%
+  mutate(wday = c("Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday")[Day],
+         wday_dec = Day + hour/24)
+```
+
 ## Introduction
 
 * Automobiles are an indispensable part of life. Thanks to them that travel, transaction, business, and even medical problems has been improving. But they also carry risks that affect human life. People's need is higher and higher, so the number of vehicles must also increase, which entails many consequences such as traffic congestion and accidents. Every day, with hundreds of millions of car trips moving continuously across the country, the chance that one person might find him/herself get involved in an accident is not small.
@@ -80,41 +93,9 @@ run;
   - Compare Result. 8 and Result. 9. 
 * Look at the relationship between all the factors above. Conclude.
 
-
-
-```{r, echo=FALSE, message=FALSE, warning=FALSE}
-library(lubridate)
-library(dplyr)
-library(stringr)
-library(plotly)
-tmp <- Crash %>%
-  mutate(hm = sprintf("%04d", Hour),
-         hour = str_sub(hm, 1, 2) %>% parse_number(),
-         minute = str_sub(hm, 3, 4) %>% parse_number()) %>%
-  mutate(wday = c("Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday")[Day],
-         wday_dec = Day + hour/24)
-
-
-ggplot(tmp, aes(x = wday_dec)) + 
-  geom_line(stat = "count", aes(y = ..count..))
-
-ggplot(tmp, aes(x = hour, color = wday)) + 
-  geom_line(stat = "count", aes(y = ..count..))
-```
-
 > Note the lack of bar charts! Also, I would have expected different patterns on Saturday and Sunday, so it's a bit odd that those aren't showing up.
 
-```{r, echo=FALSE, message=FALSE, warning=FALSE}
-library(plotly)
 
-p <- tmp %>%
-  group_by(hour, wday, Year) %>%
-  summarize(count = n()) %>%
-  ungroup() %>%
-  ggplot(aes(x = hour, y = count, color = wday)) + 
-  geom_line(aes(frame = Year)) 
-ggplotly(p)
-```
 
 ## Results
 
@@ -240,6 +221,24 @@ PROC IMPORT DATAFILE = dat OUT = Crash
     GUESSINGROWS = 5000;
 RUN;
 
+```
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+library(plotly)
+
+p <- tmp %>%
+  group_by(hour, wday, Year) %>%
+  summarize(count = n()) %>%
+  ungroup() %>%
+  ggplot(aes(x = hour, y = count, color = wday)) + 
+  geom_line(aes(frame = Year)) 
+ggplotly(p)
+
+ggplot(tmp, aes(x = wday_dec)) + 
+  geom_line(stat = "count", aes(y = ..count..))
+
+ggplot(tmp, aes(x = hour, color = wday)) + 
+  geom_line(stat = "count", aes(y = ..count..))
 ```
 
 ## Conclusion
