@@ -93,9 +93,6 @@ run;
   - Compare Result. 8 and Result. 9. 
 * Look at the relationship between all the factors above. Conclude.
 
-> Note the lack of bar charts! Also, I would have expected different patterns on Saturday and Sunday, so it's a bit odd that those aren't showing up.
-
-
 
 ## Results
 
@@ -196,8 +193,22 @@ ggplot(Month, aes(x = fct_rev(fct_infreq(`Primary Factor`)))) +
   theme_minimal()+ coord_flip()
 ```
 
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+tmp %>%
+  group_by(`Collision Type`, Month) %>%
+  summarize(count = n()) %>%
+  ungroup() %>%
+  ggplot(aes(x = Month, y = count)) + 
+  geom_col() + 
+  ggtitle("Fig. Collision types from 2003 to 2015") +
+  facet_wrap(~`Collision Type`)
 
-```{r}
+```
+
+
+
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
 tmp %>%
   filter(Year == "2003") %>%
   group_by(`Collision Type`, Month) %>%
