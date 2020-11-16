@@ -62,26 +62,25 @@ run;
   - On that day (month/ year), what is the primary factor that causes the accident? What are the highest injuries? 
   - What can we conclude about driving habit of citizen of Monroe county?
   
-> Can you answer any of these questions graphically to identify trends? It's not just single-day results that matter, it's the overall trends of which days are likely to result in more crashes.
-  
 ## Methods
 
-* Find which year has the highest accidents. Call it Result. 1
+* Comparing the overall with a specific year:
+* Find the year that has the most accidents occurred. Call it Result. 1
 * Among the years, find the month that has the highest accidents. Call it Result. 2
-  - Look at the year found in Result. 1, then, find the month which highest accidents Call it Result. 3. 
-  - Compare Result. 3 with Result. 2. Explain.
-* Among the years, find the day that has more accidents, identify if it week day or weekend. Call it Result. 4
-  - Look at Result. 1 and find which type of day has more accidents. Call it Result. 5. 
-  - Compare Result. 5 and Result. 4. Explain.
-* Among the years, find the hour (in a 24 hour format) that has the highest accidents. Call it Result. 6
-  - Look at Result. 1 and find which hour has the highest accidents. Call it Result. 7
-  - Compare Result. 6 and Result. 7. Explain.
-* Among the years, find the primary factor that cause accidents. Call it Result. 8
+  - Look at the year found in Result. 1, then, find the month has the most accidents. Call it Result. 3. 
+  - Compare Result. 3 with Result. 2. 
+* Among the years, look at the day with most accidents, identify if it weekday or weekend. Call it Result. 4
+  - Look at the Result. 1 and find which type of day has more accidents. Call it Result. 5. 
+  - Compare Result. 5 and Result. 4. 
+* Among the years, find the hour (in a 24-hour format) with the highest accidents. Call it Result. 6
+  - Look at Result. 1 and find which hour has the most accidents. Call it Result. 7
+  - Compare Result. 6 and Result. 7. 
+* Among the years, look for the primary factor that causes accidents. Call it Result. 8
   - Look at Result. 1 and find the primary factor for accidents. Call it Result. 9
-  - Compare Result. 8 and Result. 9. Explain.
-* Look at the relation between primary factor and number of car involved/ month/ day/ hour. Draw conclusion.
+  - Compare Result. 8 and Result. 9. 
+* Look at the relationship between all the factors above. Conclude.
 
-> I think this is a decent strategy, but I would use either graphical exploration or a statistical model (or both) to do the exploration, instead of looking for single days.
+
 
 ```{r, echo=FALSE, message=FALSE, warning=FALSE}
 library(lubridate)
@@ -138,11 +137,11 @@ run;
 
 ```{r, echo=FALSE, message=FALSE, warning=FALSE}
 
-Month<-filter(Crash, Year == "2003")
+Month<-filter(tmp, Year == "2003")
 ggplot(Month, aes(x = Month)) + 
   geom_line(stat = "count", aes(y = ..count..))+
   geom_text(aes(Month, 600, label=Month))+
-  ggtitle("Fig. 1. Accidents in 2003, month by month") +
+  ggtitle("Fig. 1. Accidents in 2003") +
   theme_minimal()
 ```
 
@@ -156,12 +155,11 @@ p <- tmp %>%
   summarize(count = n()) %>%
   ungroup() %>%
   ggplot(aes(x = Month, y = count)) + 
-  geom_line(aes(frame = Year)) 
+  geom_line(aes(frame = Year))+
+  ggtitle("Fig. 2. Overall accidents from 2003 to 2015") 
 ggplotly(p)
 
 ```
-
-> You could use the latitude and longitude to animate the accidents as they happen, if you wanted to do so. That might be pretty cool to see, and there are some awesome animation/gif packages that work nicely with e.g. ggplot2.
 
 
 ```{r, engine="sashtml", engine.path=sasexe, engine.opts=sasopts, collectcode = T, error = T, echo=FALSE, message=FALSE, warning=FALSE}
@@ -176,13 +174,21 @@ RUN;
 
 ```
 
+
+- For the year of 2003, the primary factor that for most of the accidents is "Failure to yield right of way"
 ```{r, fig.height=20}
 library(forcats)
 ggplot(Month, aes(x = fct_rev(fct_infreq(`Primary Factor`)))) + 
   geom_bar()+
-  ggtitle("Fig. 1. Accidents in 2003, month by month") +
+  ggtitle("Fig. 1. Primary factors for accidents in 2003") +
   theme_minimal()+ coord_flip()
 ```
-
+```{r, fig.height=20}
+library(forcats)
+ggplot(Month, aes(x = fct_rev(fct_infreq(`Primary Factor`)))) + 
+  geom_bar()+
+  ggtitle("Fig. 1. Primary factors for accidents in 2003") +
+  theme_minimal()+ coord_flip()
+```
 
 ## Conclusion
