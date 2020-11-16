@@ -197,6 +197,21 @@ ggplot(Month, aes(x = fct_rev(fct_infreq(`Primary Factor`)))) +
 ```
 
 
+```{r}
+tmp %>%
+  filter(Year == "2003") %>%
+  group_by(`Collision Type`, Month) %>%
+  summarize(count = n()) %>%
+  ungroup() %>%
+  ggplot(aes(x = Month, y = count)) + 
+  geom_col() + 
+  ggtitle("Fig. Collision types in 2003") +
+  facet_wrap(~`Collision Type`)
+
+```
+
+
+
 ```{r, echo=FALSE, message=FALSE, warning=FALSE}
 library(plotly)
 
