@@ -108,10 +108,10 @@ ggplot(tmp, aes(x = hour, color = wday)) +
 library(plotly)
 
 p <- tmp %>%
-  group_by(hour, wday, Year) %>%
+  group_by(hour, `Weekend?`, Year) %>%
   summarize(count = n()) %>%
   ungroup() %>%
-  ggplot(aes(x = hour, y = count, color = wday)) + 
+  ggplot(aes(x = hour, y = count, color = `Weekend?`)) + 
   geom_line(aes(frame = Year)) 
 ggplotly(p)
 ```
@@ -175,6 +175,28 @@ RUN;
 ```
 
 
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+ggplot(tmp, aes(x = `Weekend?`)) + 
+  geom_bar(fill="orange")+
+  ggtitle("Weekday or weeekend in 2003") +
+  theme_minimal()
+```
+
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+library(plotly)
+
+p <- tmp %>%
+  group_by(hour, `Weekend?`, Year) %>%
+  summarize(count = n()) %>%
+  ungroup() %>%
+  ggplot(aes(x = hour, y = count, color = `Weekend?`)) + 
+  geom_line(aes(frame = Year))+
+  ggtitle("Weekday or weeekend overall from 2003 to 2015")
+ggplotly(p)
+```
+
+
 - For the year of 2003, the primary factor that for most of the accidents is "Failure to yield right of way"
 ```{r, fig.height=20}
 library(forcats)
@@ -183,11 +205,13 @@ ggplot(Month, aes(x = fct_rev(fct_infreq(`Primary Factor`)))) +
   ggtitle("Fig. 1. Primary factors for accidents in 2003") +
   theme_minimal()+ coord_flip()
 ```
-```{r, fig.height=20}
+
+
+```{r, fig.height=20, fig.width=15}
 library(forcats)
-ggplot(Month, aes(x = fct_rev(fct_infreq(`Primary Factor`)))) + 
+ggplot(tmp, aes(x = fct_rev(fct_infreq(`Primary Factor`)))) + 
   geom_bar()+
-  ggtitle("Fig. 1. Primary factors for accidents in 2003") +
+  ggtitle("Fig. 1. Primary factors for accidents from 2003 to 2015") +
   theme_minimal()+ coord_flip()
 ```
 
