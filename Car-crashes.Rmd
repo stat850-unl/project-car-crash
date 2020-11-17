@@ -49,9 +49,6 @@ The data use in this project is accidents recorded in Monroe County, Indiana, fr
   - What kind of injuries? 
   - What is the primary reason that causes accidents to happen?
  
-```{r, results = 'asis'}
-knitr::kable(head(tmp))
-```
 
 Some questions I want to find out through the data:
   - Which year has the highest rate of accident? On what month? Is that month consistent for all other years? 
