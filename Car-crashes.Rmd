@@ -44,14 +44,18 @@ tmp <- Crash %>%
 
 Automobiles are an indispensable part of life. Thanks to them that travel, transaction, business, and even medical problems has been improving. But they also carry risks that affect human life. People's need is higher and higher, so the number of vehicles must also increase, which entails many consequences such as traffic congestion and accidents. Every day, with hundreds of millions of car trips moving continuously across the country, the chance that one person might find him/herself get involved in an accident is not small.
 
-The data use in this project is accidents recorded in Monroe County, Indiana, from 2003 to 2015. There are more than 53.000 observations (cases reported) and many variables,like:
-  - Day/ Month/ Year/ Hour (that accidents occurred). 
-  - Collision type: How many cars involved?  
-  - What kind of injuries? 
-  - What is the primary reason that causes accidents to happen?
+Monroe County is part of the Bloomington, Indiana. It was formed in 1818 from portions of Orange County, and named after James Monroe, the fifth President of the United States (in office from 1817 - 1825). The 2010 United States Census report that the population was 137,974, the total area is 411.32 square miles (1,065.3 km2), of which 394.51 square miles (1,021.8 km2) (or 95.91%) is land and 16.81 square miles (43.5 km2) (or 4.09%) is water. The county terrain is low rolling hills, covered with vegetation and largely devoted to agricultural use or urban development. [1] 
+
+The data use in this project is accidents recorded in Monroe County from 2003 to 2015. There are more than 53.000 observations (cases reported) and many variables, like:
+
+* Day/ Month/ Year/ Hour (that accidents occurred). 
+* Collision type: How many cars involved?  
+* What kind of injuries? 
+* What is the primary reason that causes accidents to happen?
  
 
 Some questions I want to find out through the data:
+
   - Which year has the highest rate of accident? On what month? Is that month consistent for all other years? 
   - Is there any specific day (or month, year) with more accidents than the other day (month/ year)? 
   - On that day (month/ year), what is the primary factor that causes the accident? What are the highest injuries? 
@@ -59,7 +63,8 @@ Some questions I want to find out through the data:
   
 ## Methods
 
-* Comparing the overall with a specific year to find the "trend" of accidents.
+Comparing the overall with a specific year to find the "trend" of accidents.
+
 * Find the year that has the most accidents occurred. Call it Result. 1
 * Among the years, find the month that has the highest accidents. Call it Result. 2
   - Look at the year found in Result. 1, then, find the month has the most accidents. Call it Result. 3. 
@@ -78,7 +83,7 @@ Some questions I want to find out through the data:
 
 ## Results
 
-- The frequency table below shows us that 2003 was the year with the most accidents: 4625 cases.From now on, we will compare the overall years vs the year 2003.
+The frequency table below shows us that 2003 was the year with the most accidents: 4625 cases.From now on, we will compare the overall years vs the year 2003.
 
 ```{r, error = T, echo=FALSE, message=FALSE, warning=FALSE, results='markup'}
 library(ggplot2)
@@ -100,7 +105,7 @@ tmp %>%
 
 ```
 
-We look at the overall years and found that the month with the most accidents is October. (Figure. 2)
+Look at the overall years (Figure. 2), we see that the clustered point appeared on the top of the graph, indicate that most of the accidents happened in October. 
 
 ```{r, echo=FALSE, message=FALSE, warning=FALSE}
 tmp %>%
@@ -108,13 +113,13 @@ tmp %>%
   summarize(count = n()) %>%
   ungroup() %>%
   ggplot(aes(x = Month, y = count, color=Year)) + 
-  geom_line()+
+  geom_point()+
   ggtitle("Figure 2. Accidents month by month, 2003 to 2015") 
 
 
 ```
 
-Consider the year 2003 only, we find that October is still the month with most accidents (477 cases - Figure. 3). The data looks consistent.
+Consider the year 2003 only, we find that October is still the month with most accidents (477 cases - Figure. 3). The data of 2003 looks consistent with the overall data.
 
 ```{r, echo=FALSE, message=FALSE, warning=FALSE}
 Month<-filter(tmp, Year == "2003")
@@ -139,15 +144,19 @@ tmp %>%
 
 ```
 
-Consider 2003, we found that Friday is still the day with the most cases. The data looks consistent for now. 
+In Figure 5. below, the red dot presents Friday. If we looked at overall months in 2003, we see the red dots appeared much time at the top of the graph, indicate that most of the accidents happened on Friday. So the data of 2003 consistent with the overall data. 
 
 ```{r, echo=FALSE, message=FALSE, warning=FALSE}
-ggplot(Month, aes(x = fct_rev(fct_infreq(wday)))) + 
-  geom_bar(fill="darkgreen")+
-  ggtitle("Fig. 5. Accidents day by day, 2003") + coord_flip()
+Month %>%
+  group_by(wday, Month, Year) %>%
+  summarize(count = n()) %>%
+  ungroup() %>%
+  ggplot(aes(x = Month, y=count, color=wday)) + 
+  geom_point()+
+  ggtitle("Fig. 5. Accidents day by day, 2003")
 ```
 
-Next, we look at the hour. Figure 6. and Figure 7. show us the time for most of the accidents that occurred is 5 pm. The data still consistent. 
+Next, we look at the hour of accidents. Figure 6. and Figure 7. show us the time for most of the accidents that occurred is 5 pm. The data still consistent. 
 
 ```{r, echo=FALSE, message=FALSE, warning=FALSE, figures-side, fig.show="hold", out.width="50%"}
 ggplot(tmp, aes(x = hour)) + 
@@ -242,7 +251,12 @@ ggplot(Month, aes(x = fct_rev(fct_infreq(`Primary Factor`)))) +
 ```
 
 We can summarize some of the key-words about "trending" accidents in Monroe - county: Most accidents occurred on:
-- October, Friday afternoon (around 5 pm). Almost the cases is the crash between two cars, and most of it results in no injury. The primary factor that cause the collisions is Failure to yield right of the way.
+
+* October.
+* Friday afternoon (around 5 pm). 
+* Almost the cases is the crash between two cars.
+* Most of it results in no injury. 
+* The primary factor that cause the collisions is Failure to yield right of the way.
 
 We have look at the year with highest accidents, now we investigate the year with lowest accidents. Recall from Figure 1., we know that years is 2011. We then look at all factors of this year: Month, day, hour, injury type, collision type, and primary factor.
 
@@ -260,9 +274,13 @@ Consider 2011, we found that Friday is still the day with the most cases (Figure
 
 ```{r, echo=FALSE, message=FALSE, warning=FALSE}
 
-ggplot(Mo, aes(x = fct_rev(fct_infreq(wday)))) + 
-  geom_bar(fill="darkgreen")+
-  ggtitle("Fig. 16. Accidents day by day, 2011") + coord_flip()
+Mo %>%
+  group_by(wday, Month, Year) %>%
+  summarize(count = n()) %>%
+  ungroup() %>%
+  ggplot(aes(x = Month, y=count, color=wday)) + 
+  geom_point()+
+  ggtitle("Fig. 16. Accidents day by day, 2011")
 ```
 
 Next, we look at the hour. Figure 17. show us the time for most of the accidents that occurred is 5 pm. The data still consistent. 
@@ -317,3 +335,8 @@ Fin<-filter(Month, Month == "10", wday=="Friday", hour=="17")
 
 ## Conclusion
 
+
+
+
+## Source
+[1] https://en.wikipedia.org/wiki/Monroe_County,_Indiana
