@@ -45,7 +45,6 @@ tmp <- Crash %>%
 ```
 
 ## Introduction
-
 * Automobiles are an indispensable part of life. Thanks to them that travel, transaction, business, and even medical problems has been improving. But they also carry risks that affect human life. People's need is higher and higher, so the number of vehicles must also increase, which entails many consequences such as traffic congestion and accidents. Every day, with hundreds of millions of car trips moving continuously across the country, the chance that one person might find him/herself get involved in an accident is not small.
 
 * The data use in this project is accidents recorded in Monroe County, Indiana, from 2003 to 2015. There are more than 53.000 observations (cases reported) and many variables,like:
@@ -54,6 +53,7 @@ tmp <- Crash %>%
   - What kind of injuries? 
   - What is the primary reason that causes accidents to happen?
   - Location: longitude and latitude.
+
 
 ```{r, engine="sashtml", engine.path=sasexe, engine.opts=sasopts, collectcode = T, error = T, echo=FALSE, message=FALSE, warning=FALSE}
 ODS HTML STYLE=HTMLBLUE;
@@ -270,36 +270,14 @@ ggplot(Month, aes(x = fct_rev(fct_infreq(`Primary Factor`)))) +
 
 
 
-
-
-```{r, engine="sashtml", engine.path=sasexe, engine.opts=sasopts, collectcode = T, error = T, echo=FALSE, message=FALSE, warning=FALSE}
-ODS HTML STYLE=HTMLBLUE;
-filename dat "monroe-county-crash-data2003-to-2015.csv";
-PROC IMPORT DATAFILE = dat OUT = Crash
-    DBMS = CSV 
-    REPLACE; 
-    GETNAMES = YES;
-    GUESSINGROWS = 5000;
-RUN;
+```{r}
+ggplot(data = world) +
+    geom_sf() +
+    geom_point(data = Month, aes(x = Longitude, y = Latitude), size = 4, 
+        shape = 23, fill = "darkred") +
+    coord_sf(xlim = c(-88, -78), ylim = c(24.5, 33), expand = FALSE)
 
 ```
 
-```{r, echo=FALSE, message=FALSE, warning=FALSE}
-library(plotly)
-
-p <- tmp %>%
-  group_by(hour, wday, Year) %>%
-  summarize(count = n()) %>%
-  ungroup() %>%
-  ggplot(aes(x = hour, y = count, color = wday)) + 
-  geom_line(aes(frame = Year)) 
-ggplotly(p)
-
-ggplot(tmp, aes(x = wday_dec)) + 
-  geom_line(stat = "count", aes(y = ..count..))
-
-ggplot(tmp, aes(x = hour, color = wday)) + 
-  geom_line(stat = "count", aes(y = ..count..))
-```
 
 ## Conclusion
