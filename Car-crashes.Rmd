@@ -17,19 +17,6 @@ knitr::opts_chunk$set(echo = F, message = F, warning = F, fig.width = 5, fig.hei
 options(digits = 3)
 ```
 
-```{r load-sas-libraries, echo = F, message = F, warning = F}
-
-library(SASmarkdown)
-sas_enginesetup(sashtml=sashtml)
-
-sasexe <- "C:/Program Files/SASHome/SASFoundation/9.4/sas.exe"
-sasopts <- "-nosplash -ls 75"
-
-# Linux options (for grading, please leave this in!)
-sasexe <- "/usr/local/SASHome/SASFoundation/9.4/bin/sas_en"
-sasopts <- "-ls 75"
-```
-
 ```{r, echo=FALSE, message=FALSE, warning=FALSE} 
 library(dplyr)
 library(readr)
@@ -62,19 +49,8 @@ The data use in this project is accidents recorded in Monroe County, Indiana, fr
   - What kind of injuries? 
   - What is the primary reason that causes accidents to happen?
  
-```{r, engine="sashtml", engine.path=sasexe, engine.opts=sasopts, collectcode = T, error = T, echo=FALSE, message=FALSE, warning=FALSE}
-ODS HTML STYLE=HTMLBLUE;
-filename dat "monroe-county-crash-data2003-to-2015.csv";
-PROC IMPORT DATAFILE = dat OUT = Crash
-    DBMS = CSV 
-    REPLACE; 
-    GETNAMES = YES;
-    GUESSINGROWS = 5000;
-RUN;
-proc print data= Crash (obs=5);
-var Year Month Day Hour Collision_Type Injury_Type Primary_Factor;
-title 'Table.1. Accidents Reported from 2003 to 2015 in Monroe County, Indiana';
-run;
+```{r, results = 'asis'}
+knitr::kable(head(tmp))
 ```
 
 Some questions I want to find out through the data:
