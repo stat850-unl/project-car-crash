@@ -13,7 +13,7 @@ output:
 
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = F, message = F, warning = F, fig.width = 5, fig.height = 4, out.width = "50%")
+knitr::opts_chunk$set(echo = F, message = F, warning = F, fig.width = 5, fig.height = 4, out.width = "50%", cache = T)
 options(digits = 3)
 ```
 
@@ -106,10 +106,13 @@ Some questions I want to find out through the data:
 
 - The frequency table below shows us that 2003 was the year with the most accidents: 4625 cases.From now on, we will compare the overall years vs the year 2003.
 
-```{r, error = T, echo=FALSE, message=FALSE, warning=FALSE}
+```{r, error = T, echo=FALSE, message=FALSE, warning=FALSE, results='markup'}
 library(ggplot2)
 Count<-table(tmp$Year)
-Count
+knitr::kable(Count)
+```
+
+```{r}
 tmp %>%
   group_by(Year) %>%
   summarize(count = n()) %>%
