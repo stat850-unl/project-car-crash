@@ -78,7 +78,7 @@ run;
   
 ## Methods
 
-* Comparing the overall with a specific year:
+* Comparing the overall with a specific year to find the "trend" of accidents.
 * Find the year that has the most accidents occurred. Call it Result. 1
 * Among the years, find the month that has the highest accidents. Call it Result. 2
   - Look at the year found in Result. 1, then, find the month has the most accidents. Call it Result. 3. 
@@ -97,7 +97,7 @@ run;
 
 ## Results
 
-- Table.2. shows us that 2003 was the year with the most accidents: 4625 cases.
+- The frequency table below shows us that 2003 was the year with the most accidents: 4625 cases.From now on, we will compare the overall years vs the year 2003.
 
 ```{r, error = T, echo=FALSE, message=FALSE, warning=FALSE}
 library(ggplot2)
@@ -110,14 +110,13 @@ tmp %>%
   ggplot(aes(x = Year, y = count)) + 
   geom_bar(stat="identity", fill="steelblue") + 
   geom_text(aes(label=count), vjust=1.6, color="white", size=3.5)+
-  ggtitle("Fig. 1. Accidents on overall 2003 - 2015") +
+  ggtitle("Figure 1. Overall cases, year by year") +
   theme_minimal()
   
 
 ```
 
-- From the table above, we see that the year which highest cases reported is 2003 with 4625 cases. 
-- Next, we look at the overall years and see that October is the month with the most accidents.
+- We look at the overall years and found that the month with the most accidents is October. (Figure. 2)
 
 ```{r, echo=FALSE, message=FALSE, warning=FALSE}
 library(plotly)
@@ -127,12 +126,12 @@ p <- tmp %>%
   ungroup() %>%
   ggplot(aes(x = Month, y = count)) + 
   geom_line(aes(frame = Year))+
-  ggtitle("Fig. 2. Overall months of accidents from 2003 to 2015") 
+  ggtitle("Figure 2. Overall cases, month by month") 
 ggplotly(p)
 
 ```
 
-- Look at 2003 and we find that October is still the month with most accidents (477 cases). So the data consistent.
+- Consider the year 2003 only, we find that October is still the month with most accidents (477 cases - Figure. 3). The data looks consistent.
 
 ```{r, echo=FALSE, message=FALSE, warning=FALSE}
 
@@ -140,10 +139,11 @@ Month<-filter(tmp, Year == "2003")
 ggplot(Month, aes(x = Month)) + 
   geom_line(stat = "count", aes(y = ..count..))+
   geom_text(aes(Month, 600, label=Month))+
-  ggtitle("Fig. 3. Months of accidents in 2003") +
+  ggtitle("Figure 3. Cases in 2003, month by month") +
   theme_minimal()
 ```
 
+- Figure 4. shows that Friday is the day with most accidents happened through overall years.
 
 ```{r, echo=FALSE, message=FALSE, warning=FALSE}
 library(plotly)
@@ -154,36 +154,58 @@ p <- tmp %>%
   ungroup() %>%
   ggplot(aes(x = wday, y = count)) + 
   geom_point(aes(frame = Year))+
-  ggtitle("Fig. 4. Overall days of accidents from 2003 to 2015")
+  ggtitle("Figure 4. Overall cases, day by day")
 ggplotly(p)
 ```
+
+- Consider 2003, we found that Friday is still the day with the most cases. The data looks consistent for now. 
 
 ```{r, echo=FALSE, message=FALSE, warning=FALSE}
 
 ggplot(Month, aes(x = wday)) + 
   geom_point(stat = "count", aes(y = ..count..))+
-  ggtitle("Fig. 5. Days of accidents in 2003") 
+  ggtitle("Fig. 5. Cases in 2003, day by day") 
 ```
+
+
+
+
 
 
 
 ```{r, echo=FALSE, message=FALSE, warning=FALSE, figures-side, fig.show="hold", out.width="50%"}
-ggplot(tmp, aes(x = `Weekend?`)) + 
+ggplot(tmp, aes(x = hour)) + 
   geom_bar(fill="orange")+
-  ggtitle("Fig. 6. Weekday or weekend overall from 2003 to 2015") +
+  ggtitle("Figure 6. Overall cases, hour by hour") +
   theme_minimal()
 
-ggplot(Month, aes(x = `Weekend?`)) + 
-  geom_bar(fill="steelblue")+
-  ggtitle("Fig. 7. Weekday or weekend in 2003") +
+ggplot(Month, aes(x = hour)) + 
+  geom_bar(fill="darkgreen")+
+  ggtitle("Figure 7. Cases in 2003, hour by hour") +
   theme_minimal()
 
 ```
 
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+library(plotly)
+
+p <- tmp %>%
+  group_by(hour, `Weekend?`, Year) %>%
+  summarize(count = n()) %>%
+  ungroup() %>%
+  ggplot(aes(x = hour, y = count, color = `Weekend?`)) + 
+  geom_line(aes(frame = Year))+
+  ggtitle("Figure 10. Accidents relate in hour and weekend overall years")
+ggplotly(p)
+```
+
+
+
 ```{r, echo=FALSE, message=FALSE, warning=FALSE}
 ggplot(tmp, aes(x = "", fill=`Injury Type`)) + 
   geom_bar()+
-  ggtitle("Fig. 10. Injury types  overall from 2003 to 2015") +
+  ggtitle("Figure 11. Injury types  overall from 2003 to 2015") +
   theme_minimal()+
   coord_polar("y")
 ```
@@ -192,7 +214,7 @@ ggplot(tmp, aes(x = "", fill=`Injury Type`)) +
 ```{r, echo=FALSE, message=FALSE, warning=FALSE}
 ggplot(Month, aes(x = "", fill=`Injury Type`)) + 
   geom_bar()+
-  ggtitle("Fig. 11. Injury types  in from 2003") +
+  ggtitle("Figure 12. Injury types  in from 2003") +
   theme_minimal()+
   coord_polar("y")
 ```
@@ -205,7 +227,7 @@ tmp %>%
   ungroup() %>%
   ggplot(aes(x = Month, y = count)) + 
   geom_col() + 
-  ggtitle("Fig. 12. Collision types from 2003 to 2015") +
+  ggtitle("Figure 13. Collision types from 2003 to 2015") +
   facet_wrap(~`Collision Type`)
 
 ```
@@ -220,7 +242,7 @@ tmp %>%
   ungroup() %>%
   ggplot(aes(x = Month, y = count)) + 
   geom_col() + 
-  ggtitle("Fig. 13. Collision types in 2003") +
+  ggtitle("Figure 14. Collision types in 2003") +
   facet_wrap(~`Collision Type`)
 
 ```
@@ -232,7 +254,7 @@ tmp %>%
 library(forcats)
 ggplot(tmp, aes(x = fct_rev(fct_infreq(`Primary Factor`)))) + 
   geom_bar()+
-  ggtitle("Fig. 14. Primary factors for accidents from 2003 to 2015") +
+  ggtitle("Figure 15. Primary factors for accidents from 2003 to 2015") +
   theme_minimal()+ coord_flip()
 ```
 
@@ -241,29 +263,13 @@ ggplot(tmp, aes(x = fct_rev(fct_infreq(`Primary Factor`)))) +
 library(forcats)
 ggplot(Month, aes(x = fct_rev(fct_infreq(`Primary Factor`)))) + 
   geom_bar()+
-  ggtitle("Fig. 15. Primary factors for accidents in 2003") +
+  ggtitle("Figure 16. Primary factors for accidents in 2003") +
   theme_minimal()+ coord_flip()
 ```
 
 
 
 
-
-
-
-
-```{r, echo=FALSE, message=FALSE, warning=FALSE}
-library(plotly)
-
-p <- tmp %>%
-  group_by(hour, `Weekend?`, Year) %>%
-  summarize(count = n()) %>%
-  ungroup() %>%
-  ggplot(aes(x = hour, y = count, color = `Weekend?`)) + 
-  geom_line(aes(frame = Year))+
-  ggtitle("Fig. Accidents relate in hour and weekend overall years")
-ggplotly(p)
-```
 
 
 ```{r, engine="sashtml", engine.path=sasexe, engine.opts=sasopts, collectcode = T, error = T, echo=FALSE, message=FALSE, warning=FALSE}
