@@ -83,13 +83,15 @@ Comparing the overall with a specific year to find the "trend" of accidents.
 
 ## Results
 
-
+First, consider a frequency table below:
 
 ```{r, error = T, echo=FALSE, message=FALSE, warning=FALSE, results='markup'}
 library(ggplot2)
 Count<-table(tmp$Year)
 knitr::kable(Count)
 ```
+
+Then, consider the bars chart: 
 
 ```{r}
 tmp %>%
@@ -118,9 +120,7 @@ ggplot(tmp, aes(x = Month)) +
 
 ```
 
-In Figure 2., we see the peak at October, indicate that month has the most accidents happened.
-
-
+In Figure 2., we see the number of accidents peaking at two months: April and October. The peak in October is higher, indicate that month has the most accidents. From now we assume the trend "months of accidents" are April and October. 
 
 ```{r, echo=FALSE, message=FALSE, warning=FALSE}
 Month<-filter(tmp, Year == "2003")
@@ -244,7 +244,7 @@ tmp %>%
 
 ```
 
-Figure 11. and Figure 12. tell us about the type of crash: How many vehicles involved? One, two, or three? Can it be the bus? Cyclist? Motorcycle? Pedestrian? If we look at the overall 2003 to 2015 and look at 2003 only, we see that most of the accidents are the collision between two cars.
+Figure 11. and Figure 12. tell us about the type of crash: How many vehicles involved? One, two, or three? Can it be the bus? Cyclist? Motorcycle? Pedestrian? 
 
 ```{r, echo=FALSE, message=FALSE, warning=FALSE}
 tmp %>%
@@ -259,6 +259,7 @@ tmp %>%
 
 ```
 
+If we look at the overall 2003 to 2015 and look at 2003 only, we see that most of the accidents are the collision between two cars.
 
 ```{r, fig.height=20, fig.width=15, echo=FALSE, message=FALSE, warning=FALSE}
 ggplot(tmp, aes(x = fct_rev(fct_infreq(`Primary Factor`)))) + 
