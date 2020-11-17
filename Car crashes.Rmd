@@ -109,7 +109,7 @@ tmp %>%
   ggplot(aes(x = Year, y = count)) + 
   geom_bar(stat="identity", fill="steelblue") + 
   geom_text(aes(label=count), vjust=1.6, color="white", size=3.5)+
-  ggtitle("Figure 1. Overall cases, year by year") +
+  ggtitle("Figure 1. Which year has the highest accidents?") +
   theme_minimal()
   
 
@@ -125,7 +125,7 @@ p <- tmp %>%
   ungroup() %>%
   ggplot(aes(x = Month, y = count)) + 
   geom_line(aes(frame = Year))+
-  ggtitle("Figure 2. Overall cases, month by month") 
+  ggtitle("Figure 2. Accidents month by month, 2003 to 2015") 
 ggplotly(p)
 
 ```
@@ -137,7 +137,7 @@ Month<-filter(tmp, Year == "2003")
 ggplot(Month, aes(x = Month)) + 
   geom_line(stat = "count", aes(y = ..count..))+
   geom_text(aes(Month, 600, label=Month))+
-  ggtitle("Figure 3. Cases in 2003, month by month") +
+  ggtitle("Figure 3. Accidents month by month, 2003") +
   theme_minimal()
 ```
 
@@ -152,7 +152,7 @@ p <- tmp %>%
   ungroup() %>%
   ggplot(aes(x = wday, y = count)) + 
   geom_point(aes(frame = Year))+
-  ggtitle("Figure 4. Overall cases, day by day")
+  ggtitle("Figure 4. Accidents day by day, 2003 to 2015")
 ggplotly(p)
 ```
 
@@ -162,7 +162,7 @@ ggplotly(p)
 
 ggplot(Month, aes(x = wday)) + 
   geom_point(stat = "count", aes(y = ..count..))+
-  ggtitle("Fig. 5. Cases in 2003, day by day") 
+  ggtitle("Fig. 5. Accidents day by day, 2003") 
 ```
 
 - Next, we look at the hour. Figure 6. and Figure 7. show us the time for most of the accidents that occurred is 5 pm. The data still consistent. 
@@ -170,17 +170,17 @@ ggplot(Month, aes(x = wday)) +
 ```{r, echo=FALSE, message=FALSE, warning=FALSE, figures-side, fig.show="hold", out.width="50%"}
 ggplot(tmp, aes(x = hour)) + 
   geom_bar(fill="orange")+
-  ggtitle("Figure 6. Overall cases, hour by hour") +
+  ggtitle("Figure 6. Accidents hour by hour, 2003 to 2015") +
   theme_minimal()
 
 ggplot(Month, aes(x = hour)) + 
   geom_bar(fill="darkgreen")+
-  ggtitle("Figure 7. Cases in 2003, hour by hour") +
+  ggtitle("Figure 7. Accidents hour by hour, 2003") +
   theme_minimal()
 
 ```
 
-- From 2003 to 2015, there is a significant difference between the number of accidents on the weekend vs. the weekdays (Figure 8.). It looks like accidents tend to appear on the weekend rather than on weekdays.
+- From 2003 to 2015, there is a significant difference between the number of accidents on weekdays vs. the weekend (Figure 8.). It looks like accidents tend to appear on weekdays rather than on the weekend.
 
 ```{r, echo=FALSE, message=FALSE, warning=FALSE}
 library(plotly)
@@ -195,12 +195,12 @@ p <- tmp %>%
 ggplotly(p)
 ```
 
-- Luckily, most of the accidents result in no injury. The number of incapacitating and fatal cases was not high (Figure 9. and Figure 10.).
+# Luckily, most of the accidents result in no injury. The number of incapacitating and fatal cases was not high (Figure 9. and Figure 10.).
 
 ```{r, echo=FALSE, message=FALSE, warning=FALSE}
 ggplot(tmp, aes(x = "", fill=`Injury Type`)) + 
   geom_bar()+
-  ggtitle("Figure 9. Injury types  overall from 2003 to 2015") +
+  ggtitle("Figure 9. Injury types, 2003 to 2015") +
   theme_minimal()+
   coord_polar("y")
 ```
@@ -208,13 +208,12 @@ ggplot(tmp, aes(x = "", fill=`Injury Type`)) +
 ```{r, echo=FALSE, message=FALSE, warning=FALSE}
 ggplot(Month, aes(x = "", fill=`Injury Type`)) + 
   geom_bar()+
-  ggtitle("Figure 10. Injury types  in from 2003") +
+  ggtitle("Figure 10. Injury type, 2003") +
   theme_minimal()+
   coord_polar("y")
 ```
 
-- Figure 11. and Figure 12. let us know that most of the crashes are collisions between two cars. 
-
+# Figure 11. and Figure 12. let us know that most of the crashes are collisions between two cars. 
 ```{r, echo=FALSE, message=FALSE, warning=FALSE}
 tmp %>%
   group_by(`Collision Type`, Month) %>%
@@ -222,7 +221,7 @@ tmp %>%
   ungroup() %>%
   ggplot(aes(x = Month, y = count)) + 
   geom_col() + 
-  ggtitle("Figure 11. Collision types from 2003 to 2015") +
+  ggtitle("Figure 11. Collision types, 2003 to 2015") +
   facet_wrap(~`Collision Type`)
 
 ```
@@ -237,7 +236,7 @@ tmp %>%
   ungroup() %>%
   ggplot(aes(x = Month, y = count)) + 
   geom_col() + 
-  ggtitle("Figure 12. Collision types in 2003") +
+  ggtitle("Figure 12. Collision types, 2003") +
   facet_wrap(~`Collision Type`)
 
 ```
@@ -248,7 +247,7 @@ tmp %>%
 library(forcats)
 ggplot(tmp, aes(x = fct_rev(fct_infreq(`Primary Factor`)))) + 
   geom_bar()+
-  ggtitle("Figure 13. Primary factors for accidents from 2003 to 2015") +
+  ggtitle("Figure 13. Primary factors of accidents, 2003 to 2015") +
   theme_minimal()+ coord_flip()
 ```
 
@@ -257,7 +256,7 @@ ggplot(tmp, aes(x = fct_rev(fct_infreq(`Primary Factor`)))) +
 library(forcats)
 ggplot(Month, aes(x = fct_rev(fct_infreq(`Primary Factor`)))) + 
   geom_bar()+
-  ggtitle("Figure 14. Primary factors for accidents in 2003") +
+  ggtitle("Figure 14. Primary factors of accidents, 2003") +
   theme_minimal()+ coord_flip()
 ```
 
