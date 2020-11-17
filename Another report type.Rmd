@@ -131,7 +131,7 @@ ggplot(Month, aes(x = Month)) +
   theme_minimal()
 ```
 
-In Figure 3. we consider the year 2003 only, and we find that October is still the month with the most accidents when February stands at 2nd place. 
+In Figure 3. we consider the year 2003 only, and we find that October is still the month with the most accidents. The 2nd place is not April but instead, February. 
 
 
 ```{r, echo=FALSE, message=FALSE, warning=FALSE}
