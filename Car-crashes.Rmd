@@ -2,12 +2,18 @@
 title: "Project Report: Cars Crash"
 author: "Huy Ngo"
 date: "Fall 2020"
-output: markdowntemplates::skeleton
+output:
+  pagedown::html_paged:
+    toc: false
+    # change to true for a self-contained document, but it'll be a litte slower for Pandoc to render
+    self_contained: false
+# uncomment this line to produce HTML and PDF in RStudio:
+#knit: pagedown::chrome_print
 ---
 
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = F, message = F, warning = F, fig.width = 8, fig.height = 4, out.width = "100%", cache = T)
+knitr::opts_chunk$set(echo = F, message = F, warning = F, fig.width = 5, fig.height = 4, out.width = "50%", cache = T)
 options(digits = 3)
 ```
 
@@ -15,7 +21,6 @@ options(digits = 3)
 library(dplyr)
 library(readr)
 library(ggplot2)
-library(plotly)
 library(forcats)
 Crash <- read_csv("monroe-county-crash-data2003-to-2015.csv")
 ```
@@ -23,9 +28,7 @@ Crash <- read_csv("monroe-county-crash-data2003-to-2015.csv")
 
 ```{r, echo=FALSE, message=FALSE, warning=FALSE}
 library(lubridate)
-library(dplyr)
 library(stringr)
-library(plotly)
 tmp <- Crash %>%
   mutate(hm = sprintf("%04d", Hour),
          hour = str_sub(hm, 1, 2) %>% parse_number(),
@@ -34,7 +37,7 @@ tmp <- Crash %>%
          wday_dec = Day + hour/24)
 ```
 
-# Introduction
+## Introduction
 
 Automobiles are an indispensable part of life. Thanks to them that travel, transaction, business, and even medical problems has been improving. But they also carry risks that affect human life. People's need is higher and higher, so the number of vehicles must also increase, which entails many consequences such as traffic congestion and accidents. Every day, with hundreds of millions of car trips moving continuously across the country, the chance that one person might find him/herself get involved in an accident is not small.
 
@@ -55,7 +58,7 @@ Some questions I want to find out through the data:
   - On that day (month/ year), what is the primary factor that causes the accident? What are the highest injuries? 
   - What can we conclude about driving habit of citizen of Monroe county?
   
-# Methods
+## Methods
 
 Comparing the overall with a specific year to find the "trend" of accidents.
 
@@ -75,7 +78,7 @@ Comparing the overall with a specific year to find the "trend" of accidents.
 * Look at the relationship between all the factors above. Conclude.
 
 
-# Results
+## Results
 
 The frequency table below shows us that 2003 was the year with the most accidents: 4625 cases.From now on, we will compare the overall years vs the year 2003.
 
@@ -315,7 +318,6 @@ tmp %>%
 ```
 
 For 2011, "Failure to yield right of way" is still the most factor that lead to accidents (Figure 20.). It looks like the data is consistent for all of the factors. 
-
 ```{r, fig.height=20, fig.width=15, echo=FALSE, message=FALSE, warning=FALSE}
 ggplot(Mo, aes(x = fct_rev(fct_infreq(`Primary Factor`)))) + 
   geom_bar()+
@@ -323,16 +325,15 @@ ggplot(Mo, aes(x = fct_rev(fct_infreq(`Primary Factor`)))) +
   theme_minimal()+ coord_flip()
 ```
 
+```{r}
+Fin<-filter(Month, Month == "10", wday=="Friday", hour=="17")
+```
 
 
-<<<<<<< HEAD
 ## Conclusion
 
 
 
 
-## Source
+## Sources
 [1] https://en.wikipedia.org/wiki/Monroe_County,_Indiana
-=======
-# Conclusion
->>>>>>> 299db94f75fc00ffb62ef5defdf50f620a91850d
