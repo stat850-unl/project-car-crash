@@ -328,9 +328,6 @@ ggplot(Mo, aes(x = fct_rev(fct_infreq(`Primary Factor`)))) +
   theme_minimal()+ coord_flip()
 ```
 
-```{r}
-Fin<-filter(Month, Month == "10", wday=="Friday", hour=="17")
-```
 
 
 ## Conclusion
