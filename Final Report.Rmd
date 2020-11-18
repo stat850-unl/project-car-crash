@@ -194,24 +194,30 @@ tmp %>%
   ggtitle("Figure 7. Weekend or weekdays?")
 ```
 
-As 8121 > 6636 and 696 > 561, we conclude that accidents tend to appear on weekdays rather than on the weekend. Figure 7. shows the relationship between hours and weekdays. Notice that the peak is around 5 pm, and so consistent with what we are assuming about the data: Most of the acidents happened in the evening. 
+As 8121 > 6636 and 696 > 561, we conclude that accidents tend to appear on weekdays rather than on the weekend. Figure 7. shows the relationship between hours and weekdays. Notice that the peak is around 5 pm, and so consistent with what we are assuming about the data: Most of the accidents happened in the evening. 
 
 ```{r, echo=FALSE, message=FALSE, warning=FALSE}
-ggplot(tmp, aes(x = "", fill=`Injury Type`)) + 
-  geom_bar()+
-  ggtitle("Figure 8. Injury types, 2003 to 2015") +
-  theme_minimal()+
-  coord_polar("y")
+tmp %>%
+  group_by( `Injury Type`, Month) %>%
+  summarize(count = n()) %>%
+  ungroup() %>%
+  ggplot(aes(x = Month, y = count, color = `Injury Type`)) + 
+  geom_line()+
+  ggtitle("Figure 8. Injury types, 2003 to 2015")
+
 ```
 
 Next, we look at the fatal rate. There are four types of injury: Fatal, incapacitating, no injury/ unknown, and non-incapacitating.
 
 ```{r, echo=FALSE, message=FALSE, warning=FALSE}
-ggplot(Month, aes(x = "", fill=`Injury Type`)) + 
-  geom_bar()+
-  ggtitle("Figure 9. Injury type, 2003") +
-  theme_minimal()+
-  coord_polar("y")
+Month %>%
+  group_by( `Injury Type`, Month) %>%
+  summarize(count = n()) %>%
+  ungroup() %>%
+  ggplot(aes(x = Month, y = count, color = `Injury Type`)) + 
+  geom_line()+
+  ggtitle("Figure 9. Injury types, 2003")
+
 ```
 
 Luckily, most of the accidents result in no injury. The number of incapacitating and fatal cases was not high. The data looks consistent for both overall years and 2003 (Figure 8. and Figure 9.).
@@ -303,7 +309,7 @@ Mo %>%
   ungroup() %>%
   ggplot(aes(x = hour, y=count, color=wday)) + 
   geom_line()+
-  ggtitle("Figure 6. Accidents hour by hour, 2003")
+  ggtitle("Figure 16. Accidents hour by hour, 2011")
 
 ```
 
@@ -311,11 +317,14 @@ Figure 17. show us the time for most of the accidents is afternoon, and it peaki
 
 
 ```{r, echo=FALSE, message=FALSE, warning=FALSE}
-ggplot(Mo, aes(x = "", fill=`Injury Type`)) + 
-  geom_bar()+
-  ggtitle("Figure 17. Injury type, 2011") +
-  theme_minimal()+
-  coord_polar("y")
+Mo %>%
+  group_by( `Injury Type`, Month) %>%
+  summarize(count = n()) %>%
+  ungroup() %>%
+  ggplot(aes(x = Month, y = count, color = `Injury Type`)) + 
+  geom_line()+
+  ggtitle("Figure 17. Injury types, 2011")
+
 ```
 Most of the accidents result in no injury (Figure 18.). This is consistent with what we are assuming about the data.
 
