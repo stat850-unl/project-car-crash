@@ -44,14 +44,14 @@ tmp <- Crash %>%
 
 Automobiles are an indispensable part of life. Thanks to them that travel, transaction, business, and even medical problems has been improving. But they also carry risks that affect human life. People's need is higher and higher, so the number of vehicles must also increase, which entails many consequences such as traffic congestion and accidents. Every day, with hundreds of millions of car trips moving continuously across the country, the chance that one person might find him/herself get involved in an accident is not small.
 
-Monroe County is part of the Bloomington, Indiana. It was formed in 1818 from portions of Orange County, and named after James Monroe, the fifth President of the United States (in office from 1817 - 1825). The 2010 United States Census report that the population was 137,974, the total area is 411.32 square miles (1,065.3 km2), of which 394.51 square miles (1,021.8 km2) (or 95.91%) is land and 16.81 square miles (43.5 km2) (or 4.09%) is water. The county terrain is low rolling hills, covered with vegetation and largely devoted to agricultural use or urban development. [1] 
+Monroe County is part of the Bloomington, Indiana. It was formed in 1818 from portions of Orange County, and named after the fifth President of the United States, James Monroe. The 2010 United States Census report that the population was 137,974, the total area is 411.32 square miles (1,065.3 km2), of which 394.51 square miles (1,021.8 km2) (or 95.91%) is land and 16.81 square miles (43.5 km2) (or 4.09%) is water. The county terrain is low rolling hills, covered with vegetation and largely devoted to agricultural use or urban development. [1] 
 
 The data use in this project is accidents reported in Monroe County from 2003 to 2015. There are more than 53.000 observations (cases reported) and many variables, like:
 
-* Day/ Month/ Year/ Hour (that accidents occurred). 
-* Collision type: How many cars involved?  
-* What kind of injuries? 
-* What is the primary reason that causes accidents to happen?
++ Day/ Month/ Year/ Hour (that accidents occurred). 
++ Collision type: Type of vehicles involved?  
++ Injury Types: Fatal, incapacitating, no injury/ unknown, and non-incapacitating.
++ Primary factors that cause accidents: Following too closely, unsafe backing, etc.
  
 
 Some questions I want to find out through the data:

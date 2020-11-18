@@ -1,16 +1,37 @@
 ---
 title: "Project: Cars Crash"
 author: "Huy Ngo"
-output: 
-  ioslides_presentation:
-    logo: ca.png
-    biglogo: ca.png
+output: slidy_presentation
+  
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE)
 options(digits = 3)
 ```
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE} 
+library(dplyr)
+library(readr)
+library(ggplot2)
+library(plotly)
+library(forcats)
+Crash <- read_csv("monroe-county-crash-data2003-to-2015.csv")
+```
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+library(lubridate)
+library(dplyr)
+library(stringr)
+library(plotly)
+tmp <- Crash %>%
+  mutate(hm = sprintf("%04d", Hour),
+         hour = str_sub(hm, 1, 2) %>% parse_number(),
+         minute = str_sub(hm, 3, 4) %>% parse_number()) %>%
+  mutate(wday = c("Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday")[Day],
+         wday_dec = Day + hour/24)
+```
+
 ## Introduction {.smaller}
   - Automobiles are an indispensable part of life. 
   - Thanks to them that travel, transaction, business, and even medical problems has been improving.
@@ -22,15 +43,17 @@ options(digits = 3)
 - Part of the Bloomington, Indiana.
 - It was formed in 1818, and named after the fifth President of the United States, James Monroe.
 - The 2010 United States Census report that the population was 137,974.
+- The total area is 411.32 square miles, which 95.91% is land and 4.09% is water.
+
 
 ## Data explornation {.smaller}
 - Accidents reported in Monroe County from 2003 to 2015.
 - More than 53.000 cases.
 - Some factors:
-  * Day/ Month/ Year/ Hour (that accidents occurred). 
-  * Collision type: How many cars involved?  
-  * What kind of injuries? 
-  * What is the primary reason that causes accidents to happen?
+  + Day/ Month/ Year/ Hour (that accidents occurred). 
+  + Collision type: Type of vehicles involved?  
+  + Injury Types: Fatal, incapacitating, no injury/ unknown, and non-incapacitating.
+  + Primary factors that cause accidents: Following too closely, unsafe backing, etc.
 
 
 ## Topic Ideas: {.smaller}
@@ -38,9 +61,52 @@ options(digits = 3)
   + Which year has the highest rate of accident? On what month? Is that month consistent for all other years? 
   + Is there any specific day (or month, year) with more accidents than the other day (month/ year)? 
   + On that day (month/ year), what is the primary factor that causes the accident? What are the highest injuries? 
+  + What can we conclude about driving habit of citizen of Monroe county?
   
-## Total Accidents By Years {.smaller}
+## 2003 {.smaller}
 
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+tmp %>%
+  group_by(Year) %>%
+  summarize(count = n()) %>%
+  ungroup() %>%
+  ggplot(aes(x = Year, y = count)) + 
+  geom_bar(stat="identity", fill="brown") + 
+  geom_text(aes(label=count), vjust=1.6, color="white", size=3.5)+
+  ggtitle("Figure 1. Which year has the highest accidents?") +
+  theme_minimal()
+  
+```
+
+## October 
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+p<-tmp %>%
+  group_by(Month, Year) %>%
+  summarize(count = n()) %>%
+  ungroup() %>%
+  ggplot(aes(x = Month, y = count)) + 
+  geom_line(aes(frame=Year))+
+  ggtitle("Figure 2. Accidents month by month, 2003 to 2015") 
+ggplotly(p)
+
+```
+
+
+## Weekday or weekend?
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+library(plotly)
+p<-tmp %>%
+  group_by(hour, `Weekend?`, Year) %>%
+  summarize(count = n()) %>%
+  ungroup() %>%
+  ggplot(aes(x = hour, y = count, color = `Weekend?`)) + 
+  geom_line(aes(frame = Year))+
+  ggtitle("Figure 8. Weekend or weekdays?")
+ggplotly(p)
+
+```
 
 ## Sources
 
