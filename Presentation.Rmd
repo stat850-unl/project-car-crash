@@ -1,8 +1,10 @@
 ---
 title: "Project: Cars Crash"
 author: "Huy Ngo"
-output: slidy_presentation
-  
+output: 
+  ioslides_presentation:
+    logo: ca.png
+    biglogo: ca.png
 ---
 
 ```{r setup, include=FALSE}
@@ -62,8 +64,8 @@ tmp <- Crash %>%
   + Is there any specific day (or month, year) with more accidents than the other day (month/ year)? 
   + On that day (month/ year), what is the primary factor that causes the accident? What are the highest injuries? 
   + What can we conclude about driving habit of citizen of Monroe county?
-  
-## 2003 {.smaller}
+
+## Year {.smaller}
 
 ```{r, echo=FALSE, message=FALSE, warning=FALSE}
 tmp %>%
@@ -73,12 +75,14 @@ tmp %>%
   ggplot(aes(x = Year, y = count)) + 
   geom_bar(stat="identity", fill="brown") + 
   geom_text(aes(label=count), vjust=1.6, color="white", size=3.5)+
-  ggtitle("Figure 1. Which year has the highest accidents?") +
+  ggtitle("Which year has the highest rate accidents?") +
   theme_minimal()
   
 ```
 
-## October 
+
+  
+## Month {.smaller}
 
 ```{r, echo=FALSE, message=FALSE, warning=FALSE}
 p<-tmp %>%
@@ -87,13 +91,29 @@ p<-tmp %>%
   ungroup() %>%
   ggplot(aes(x = Month, y = count)) + 
   geom_line(aes(frame=Year))+
-  ggtitle("Figure 2. Accidents month by month, 2003 to 2015") 
+  ggtitle("Accidents month by month") 
+ggplotly(p)
+
+```
+
+## Day and time {.smaller}
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+library(plotly)
+p<-tmp %>%
+  group_by(hour, `wday`, Year) %>%
+  summarize(count = n()) %>%
+  ungroup() %>%
+  ggplot(aes(x = hour, y = count, color = `wday`)) + 
+  geom_point(aes(frame = Year))+
+  ggtitle("Day and time")
 ggplotly(p)
 
 ```
 
 
-## Weekday or weekend?
+
+## Weekday or weekend? {.smaller}
 
 ```{r, echo=FALSE, message=FALSE, warning=FALSE}
 library(plotly)
@@ -103,7 +123,37 @@ p<-tmp %>%
   ungroup() %>%
   ggplot(aes(x = hour, y = count, color = `Weekend?`)) + 
   geom_line(aes(frame = Year))+
-  ggtitle("Figure 8. Weekend or weekdays?")
+  ggtitle("Weekend or weekdays?")
+ggplotly(p)
+
+```
+
+## Injury types {.smaller}
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+library(plotly)
+p<-tmp %>%
+  group_by(hour, `Injury Type`, Year) %>%
+  summarize(count = n()) %>%
+  ungroup() %>%
+  ggplot(aes(x = hour, y = count, color = `Injury Type`)) + 
+  geom_line(aes(frame = Year))+
+  ggtitle("Type of injuries")
+ggplotly(p)
+
+```
+
+## How many vehicles involved? {.smaller}
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+library(plotly)
+p<-tmp %>%
+  group_by(hour, `Collision Type`, Year) %>%
+  summarize(count = n()) %>%
+  ungroup() %>%
+  ggplot(aes(x = hour, y = count, color = `Collision Type`)) + 
+  geom_line(aes(frame = Year))+
+  ggtitle("Type of injuries")
 ggplotly(p)
 
 ```
