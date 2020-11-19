@@ -190,6 +190,7 @@ The mean accidents for weekday = 597.
 
 The mean accidents for weekend = 509.
 
+As 8121 > 6636, 696 > 561, and 597 > 509, we conclude that accidents tend to appear on weekdays rather than on the weekend.
 
 ```{r, echo=FALSE, message=FALSE, warning=FALSE}
 
@@ -202,7 +203,7 @@ tmp %>%
   ggtitle("Figure 5. Weekday vs. Weekend")
 ```
 
-As 8121 > 6636, 696 > 561, and 597 > 509, we conclude that accidents tend to appear on weekdays rather than on the weekend. Figure 7. shows the relationship between hours and weekdays. Notice that the peak is around 5 pm, and so consistent with what we are assuming about the data: Most of the accidents happened in the evening. 
+In Figure 5., the line "weekend" looks steady through the years. The line "weekday" has some curves, indicate the change in the number of accidents. From 2004 to 2011, the cases dropped, but then it increased again. 
 
 ```{r, echo=FALSE, message=FALSE, warning=FALSE}
 tmp %>%
@@ -215,7 +216,8 @@ tmp %>%
 
 ```
 
-We then look at the fatal rate. There are four types of injuries: Fatal, incapacitating, no injury/ unknown, and non-incapacitating. In Figure 6., we see that the number of no injury/unknown is more than other categories. 
+Figure 6. lets us see the change of injury type through the years, and we see that the number of no injury/unknown is more than other categories.  Also, the number of "no injury" cases dropped in 2004 - 2005 and 2009 - 2012. After that, it is increasing again when the number of "non-incapacitating" keeps decreasing.
+
 
 ```{r, echo=FALSE, message=FALSE, warning=FALSE}
 Month %>%
@@ -284,7 +286,11 @@ tmp %>%
 
 ```
 
-```{r, fig.height=20, fig.width=8, echo=FALSE, message=FALSE, warning=FALSE}
+If we look at the overall 2003 to 2015 and look at 2003 only, we see that most of the accidents are the collision between two cars. Notice that the x-axis of the charts represent the months, and we see that the highest column is October, which is consistent with what we are assuming about the data. 
+
+
+
+```{r, fig.height=15, fig.width=13, echo=FALSE, message=FALSE, warning=FALSE}
 ggplot(tmp, aes(x = fct_rev(fct_infreq(`Primary Factor`)))) + 
   geom_bar(fill="steelblue")+
   ggtitle("Figure 12. Primary factors of accidents, 2003 to 2015") +
@@ -293,7 +299,7 @@ ggplot(tmp, aes(x = fct_rev(fct_infreq(`Primary Factor`)))) +
 
 For the overall years, the primary factor that for most of the accidents is "Failure to yield right of way" (Figure 12.), when the most - second factor is "Following too closely".
 
-```{r, fig.height=20, fig.width=8, echo=FALSE, message=FALSE, warning=FALSE}
+```{r, fig.height=15, fig.width=13, echo=FALSE, message=FALSE, warning=FALSE}
 ggplot(Month, aes(x = fct_rev(fct_infreq(`Primary Factor`)))) + 
   geom_bar(fill="darkgreen")+
   ggtitle("Figure 13. Primary factors of accidents, 2003") +
@@ -302,13 +308,14 @@ ggplot(Month, aes(x = fct_rev(fct_infreq(`Primary Factor`)))) +
 
 For the year of 2003, "Failure to yield right of way" is still the most factor that lead to accidents (Figure 13.), but the second factor is "Others". So the data of 2003 looks not much consistent to the overall data. 
 
-```{r, fig.height=20, fig.width=8, echo=FALSE, message=FALSE, warning=FALSE}
+```{r, fig.height=15, fig.width=13, echo=FALSE, message=FALSE, warning=FALSE}
 ggplot(Mo, aes(x = fct_rev(fct_infreq(`Primary Factor`)))) + 
   geom_bar(fill="steelblue")+
   ggtitle("Figure 14. Primary factors of accidents, 2011") +
   theme_minimal()+ coord_flip()
 ```
 
+For the year of 2003, "Failure to yield right of way" is still the most factor that lead to accidents (Figure 13.), but the second factor is "Others". So the data of 2003 looks not much consistent to the overall data. 
 
 ## Conclusion
 
