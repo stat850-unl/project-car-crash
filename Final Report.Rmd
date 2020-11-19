@@ -135,7 +135,7 @@ knitr::kable(Count)
 We see that 2003 was the year with the highest number of accidents (4625 cases) when 2011 has the lowest cases (3914). The first thing we did is compare 2003 with the overall years. After we found the trend, we will compare 2011 with the overall to verify our assumption.
 
 
-```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.height=10, fig.width=10}
+```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.height=8, fig.width=10}
 
 tmp %>%
   group_by(Year, Month, wday) %>%
@@ -151,8 +151,7 @@ tmp %>%
 
 Figure 1. gives us a panoramic view of accidents through day, month, and years. As we specified above, 2003 and 2011 are our concern. Look at the graph; both 2003 and 2011 have the highest rate of accidents in October. And not just those two years, if we look at any other year, we still see that accidents tend to occur in October. The only exceptions are 2005 (with the most accidents happened in January) and 2008 (December).
 
-Next, we look at the day. By the columns' stacking position, we can conclude that Friday is the day of most accidents. And this is consistent through the years, without exception.
-
+By the columns' stacking position, we can conclude that Friday is the day of most accidents. And this is consistent through the years, without exception. But we will keep examining this assumption through other factors below:
 
 ```{r, echo=FALSE, message=FALSE, warning=FALSE}
 tmp %>%
@@ -166,7 +165,7 @@ tmp %>%
 
 Figure 2. allows us to see both of the times and days of crashes. By the shape of the lines, we predict that most of the accidents tend to happen in the afternoon, with peaking at 5 pm. Also, evening and night time still have a decent amount of collisions compared to the dawn time. As we specified above, Friday is the day with most accidents, and the lines in this chart prove it. 
 
-```{r, echo=FALSE, message=FALSE, warning=FALSE}
+```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.height=9, fig.width=10}
 Month %>%
   group_by(hour, wday) %>%
   summarize(count = n()) %>%
@@ -179,7 +178,7 @@ Month %>%
 
 In Figure 3., we still see the red line (Friday) peaks higher than other lines. And the time of crashes still in the afternoon, peaked at 5 pm.
 
-```{r, echo=FALSE, message=FALSE, warning=FALSE}
+```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.height=10, fig.width=10}
 
 Mo %>%
   group_by(hour, wday) %>%
@@ -194,7 +193,7 @@ Mo %>%
 
 In Figure 4., we see that accidents mostly happen on Friday afternoon, but the peaking is at 4 pm instead of 5 pm.
 
-Next, we examine the difference between the weekday and the weekend. Let's take a look at the tables of frequency accidents below. If we assume that weekdays include: Monday, Tuesday, Wednesday, Thursday, Friday, and weekend have Saturday and Sunday; thus, we have to divide the number of weekday by five and divide the number of the weekend by two.
+Next, we examine the difference between the weekday and the weekend. Let's take a look at the tables of frequency below. If we assume that weekdays include: Monday, Tuesday, Wednesday, Thursday, Friday, and weekend have Saturday and Sunday; thus, we have to divide the number of weekday by five and divide the number of the weekend by two, for a better comparison.
 
 ```{r, error = T, echo=FALSE, message=FALSE, warning=FALSE, results='markup'}
 We<-table(tmp$`Weekend?`)
@@ -281,8 +280,9 @@ Mo %>%
 
 ``` 
  
+Figure 8 shows that the two lines peaked in April, May, and October, intimate that those months have many accidents happened. Also, the number of "no injury" cases still higher than in other categories. 
 
-```{r, echo=FALSE, message=FALSE, warning=FALSE}
+```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.height=8, fig.width=9}
 tmp %>%
   group_by(`Collision Type`, Month, wday) %>%
   summarize(count = n()) %>%
@@ -294,9 +294,9 @@ tmp %>%
 
 ```
 
-Figure 10. and Figure 11. tell us about the type of crash: How many vehicles involved? One, two, or three? Can it be the bus? Cyclist? Motorcycle? Pedestrian? 
+Figure 9. is multiple panels that separate the type of vehicles involved in an accident. We see that most of the crash is the collision between two cars. The number of one-car involved in an accident is decent. But the other types (more than three cars, bus, motorcycle) are not significant. Notice that "Friday" is on the top of the columns, implies that day is the day of most accidents.
 
-```{r, echo=FALSE, message=FALSE, warning=FALSE}
+```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.height=8, fig.width=9}
 tmp %>%
   filter(Year == "2003") %>%
   group_by(`Collision Type`, Month, wday) %>%
@@ -309,9 +309,9 @@ tmp %>%
 
 ```
 
-If we look at the overall 2003 to 2015 and look at 2003 only, we see that most of the accidents are the collision between two cars. Notice that the x-axis of the charts represent the months, and we see that the highest column is October, which is consistent with what we are assuming about the data. 
+Figure 10. tell us the same thing as Figure 9., as most of the accidents happened with two cars involved. 
 
-```{r, echo=FALSE, message=FALSE, warning=FALSE}
+```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.height=8, fig.width=9}
 tmp %>%
   filter(Year == "2011") %>%
   group_by(`Collision Type`, Month, wday) %>%
@@ -324,9 +324,7 @@ tmp %>%
 
 ```
 
-If we look at the overall 2003 to 2015 and look at 2003 only, we see that most of the accidents are the collision between two cars. Notice that the x-axis of the charts represent the months, and we see that the highest column is October, which is consistent with what we are assuming about the data. 
-
-
+Figure 11. has no difference from the other two figures: It shows us that most of the accidents happened on Friday, with two cars involved. 
 
 ```{r, fig.height=7, fig.width=8, echo=FALSE, message=FALSE, warning=FALSE}
 
@@ -336,7 +334,7 @@ ggplot(tmp, aes(x = fct_rev(fct_infreq(`Primary Factor`)))) +
   theme_minimal()+ coord_flip()
 ```
 
-For the overall years, the primary factor that for most of the accidents is "Failure to yield right of way" (Figure 12.), when the most - second factor is "Following too closely".
+There are many factors for the causes of accidents, but we can distinguish them into three categories:  Driver, vehicle, and environment. For a better look at the graph, we have grouped some factors, but the main reason: "Failure to yield the right of way," is still the most common reason for most of the accidents. The second factor is from the driver, which includes using the cell phone when driving, using drugs, falling asleep, driver illness, etc. If not grouped, the typical second reason (for accidents) will be "following too closely". 
 
 ```{r, fig.height=7, fig.width=8, echo=FALSE, message=FALSE, warning=FALSE}
 ggplot(Month, aes(x = fct_rev(fct_infreq(`Primary Factor`)))) + 
