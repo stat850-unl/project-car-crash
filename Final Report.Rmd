@@ -328,7 +328,7 @@ If we look at the overall 2003 to 2015 and look at 2003 only, we see that most o
 
 
 
-```{r, fig.height=11, fig.width=12, echo=FALSE, message=FALSE, warning=FALSE}
+```{r, fig.height=7, fig.width=8, echo=FALSE, message=FALSE, warning=FALSE}
 
 ggplot(tmp, aes(x = fct_rev(fct_infreq(`Primary Factor`)))) + 
   geom_bar(fill="steelblue")+
@@ -338,7 +338,7 @@ ggplot(tmp, aes(x = fct_rev(fct_infreq(`Primary Factor`)))) +
 
 For the overall years, the primary factor that for most of the accidents is "Failure to yield right of way" (Figure 12.), when the most - second factor is "Following too closely".
 
-```{r, fig.height=11, fig.width=12, echo=FALSE, message=FALSE, warning=FALSE}
+```{r, fig.height=7, fig.width=8, echo=FALSE, message=FALSE, warning=FALSE}
 ggplot(Month, aes(x = fct_rev(fct_infreq(`Primary Factor`)))) + 
   geom_bar(fill="darkgreen")+
   ggtitle("Figure 13. Primary factors of accidents, 2003") +
@@ -347,7 +347,7 @@ ggplot(Month, aes(x = fct_rev(fct_infreq(`Primary Factor`)))) +
 
 For the year of 2003, "Failure to yield right of way" is still the most factor that lead to accidents (Figure 13.), but the second factor is "Others". So the data of 2003 looks not much consistent to the overall data. 
 
-```{r, fig.height=11, fig.width=12, echo=FALSE, message=FALSE, warning=FALSE}
+```{r, fig.height=7, fig.width=8, echo=FALSE, message=FALSE, warning=FALSE}
 ggplot(Mo, aes(x = fct_rev(fct_infreq(`Primary Factor`)))) + 
   geom_bar(fill="steelblue")+
   ggtitle("Figure 14. Primary factors of accidents, 2011") +
