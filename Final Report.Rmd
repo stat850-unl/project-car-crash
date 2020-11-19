@@ -37,7 +37,19 @@ tmp <- Crash %>%
          hour = str_sub(hm, 1, 2) %>% parse_number(),
          minute = str_sub(hm, 3, 4) %>% parse_number()) %>%
   mutate(wday = c("Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday")[Day],
-         wday_dec = Day + hour/24)
+         wday_dec = Day + hour/24) %>%
+  mutate(`Primary Factor` = str_replace(`Primary Factor`, "SOULDER DEFECTIVE", "NA"))%>%
+  mutate(`Primary Factor` = str_replace(`Primary Factor`, "UTILITY WORK", "NONE (ENVIRONMENTAL)"))%>%
+  mutate(`Primary Factor` = str_replace(`Primary Factor`, "VIOLATION OF LICENSE RESTRICTION", "DRIVER LICENSE"))%>%
+  mutate(`Primary Factor` = str_replace(`Primary Factor`, "SEVERE CROSSWINDS", "NA"))%>%
+  mutate(`Primary Factor` = str_replace(`Primary Factor`, "TIRE FAILURE OR DEFECTIVE", "BRAKE FAILURE OR DEFECTIVE"))%>%
+  mutate(`Primary Factor` = str_replace(`Primary Factor`, "ENGINE FAILURE OR DEFECTIVE", "BRAKE FAILURE OR DEFECTIVE"))%>%
+   mutate(`Primary Factor` = str_replace(`Primary Factor`, "STEERING FAILURE", "BRAKE FAILURE OR DEFECTIVE")) %>%
+  mutate(`Primary Factor` = str_replace(`Primary Factor`, "HEADLIGHT DEFECTIVE OR NOT ON", "BRAKE FAILURE OR DEFECTIVE"))%>%
+  mutate(`Primary Factor` = str_replace(`Primary Factor`, "ACCELERATOR FAILURE OR DEFECTIVE", "BRAKE FAILURE OR DEFECTIVE"))%>%
+  mutate(`Primary Factor` = str_replace(`Primary Factor`, "BRAKE FAILURE OR DEFECTIVE", "OTHER (VEHICLE) - EXPLAIN IN NARRATIVE"))%>%
+  mutate(`Primary Factor` = str_replace(`Primary Factor`, "PASSENGER DISTRACTION", "DRIVER DISTRACTED - EXPLAIN IN NARRATIVE"))
+
 Month<-filter(tmp, Year == "2003")
 Mo<-filter(tmp, Year == "2011")
 ```
@@ -291,6 +303,7 @@ If we look at the overall 2003 to 2015 and look at 2003 only, we see that most o
 
 
 ```{r, fig.height=15, fig.width=13, echo=FALSE, message=FALSE, warning=FALSE}
+
 ggplot(tmp, aes(x = fct_rev(fct_infreq(`Primary Factor`)))) + 
   geom_bar(fill="steelblue")+
   ggtitle("Figure 12. Primary factors of accidents, 2003 to 2015") +
