@@ -38,17 +38,43 @@ tmp <- Crash %>%
          minute = str_sub(hm, 3, 4) %>% parse_number()) %>%
   mutate(wday = c("Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday")[Day],
          wday_dec = Day + hour/24) %>%
-  mutate(`Primary Factor` = str_replace(`Primary Factor`, "SOULDER DEFECTIVE", "NA"))%>%
-  mutate(`Primary Factor` = str_replace(`Primary Factor`, "UTILITY WORK", "NONE (ENVIRONMENTAL)"))%>%
+  mutate(`Primary Factor` = str_replace(`Primary Factor`, "UTILITY WORK", "ROADWAY OTHER (ENVIRONMENTAL) - EXPLAIN IN NARR"))%>%
   mutate(`Primary Factor` = str_replace(`Primary Factor`, "VIOLATION OF LICENSE RESTRICTION", "DRIVER LICENSE"))%>%
-  mutate(`Primary Factor` = str_replace(`Primary Factor`, "SEVERE CROSSWINDS", "NA"))%>%
   mutate(`Primary Factor` = str_replace(`Primary Factor`, "TIRE FAILURE OR DEFECTIVE", "BRAKE FAILURE OR DEFECTIVE"))%>%
   mutate(`Primary Factor` = str_replace(`Primary Factor`, "ENGINE FAILURE OR DEFECTIVE", "BRAKE FAILURE OR DEFECTIVE"))%>%
    mutate(`Primary Factor` = str_replace(`Primary Factor`, "STEERING FAILURE", "BRAKE FAILURE OR DEFECTIVE")) %>%
   mutate(`Primary Factor` = str_replace(`Primary Factor`, "HEADLIGHT DEFECTIVE OR NOT ON", "BRAKE FAILURE OR DEFECTIVE"))%>%
   mutate(`Primary Factor` = str_replace(`Primary Factor`, "ACCELERATOR FAILURE OR DEFECTIVE", "BRAKE FAILURE OR DEFECTIVE"))%>%
-  mutate(`Primary Factor` = str_replace(`Primary Factor`, "BRAKE FAILURE OR DEFECTIVE", "OTHER (VEHICLE) - EXPLAIN IN NARRATIVE"))%>%
-  mutate(`Primary Factor` = str_replace(`Primary Factor`, "PASSENGER DISTRACTION", "DRIVER DISTRACTED - EXPLAIN IN NARRATIVE"))
+  mutate(`Primary Factor` = str_replace(`Primary Factor`, "BRAKE FAILURE OR DEFECTIVE", "NONE (VEHICLE)"))%>%
+  mutate(`Primary Factor` = str_replace(`Primary Factor`, "OTHER LIGHTS DEFECTIVE", "NONE (VEHICLE)"))%>%
+  mutate(`Primary Factor` = str_replace(`Primary Factor`, "PASSENGER DISTRACTION", "DRIVER DISTRACTED - EXPLAIN IN NARRATIVE"))%>%
+   mutate(`Primary Factor` = str_replace(`Primary Factor`, "DRIVER ASLEEP OR FATIGUED", "OTHER (DRIVER) - EXPLAIN IN NARRATIVE"))%>%
+   mutate(`Primary Factor` = str_replace(`Primary Factor`, "GLARE", "OTHER (DRIVER) - EXPLAIN IN NARRATIVE"))%>%
+  mutate(`Primary Factor` = str_replace(`Primary Factor`, "SHOULDER DEFECTIVE", "OTHER (DRIVER) - EXPLAIN IN NARRATIVE"))%>%
+  mutate(`Primary Factor` = str_replace(`Primary Factor`, "INSECURE/LEAKY LOAD", "OTHER (DRIVER) - EXPLAIN IN NARRATIVE"))%>%
+  mutate(`Primary Factor` = str_replace(`Primary Factor`, "CELL PHONE USAGE", "OTHER (DRIVER) - EXPLAIN IN NARRATIVE"))%>%
+  mutate(`Primary Factor` = str_replace(`Primary Factor`, "DRIVER LICENSE", "NONE (DRIVER)"))%>%
+  mutate(`Primary Factor` = str_replace(`Primary Factor`, "DRIVER ILLNESS", "NONE (DRIVER)")) %>%
+  mutate(`Primary Factor` = str_replace(`Primary Factor`, "OVERSIZE/OVERWEIGHT LOAD", "NONE (DRIVER)")) %>%
+  mutate(`Primary Factor` = str_replace(`Primary Factor`, "OVERCORRECTING/OVERSTEERING", "OTHER (DRIVER) - EXPLAIN IN NARRATIVE")) %>%
+  mutate(`Primary Factor` = str_replace(`Primary Factor`, "OTHER TELEMATICS IN USE", "OTHER (DRIVER) - EXPLAIN IN NARRATIVE")) %>%
+  mutate(`Primary Factor` = str_replace(`Primary Factor`, "ILLEGAL DRUGS", "OTHER (DRIVER) - EXPLAIN IN NARRATIVE")) %>%
+  mutate(`Primary Factor` = str_replace(`Primary Factor`, "PRESCRIPTION DRUGS", "NONE (DRIVER)")) %>%
+  mutate(`Primary Factor` = str_replace(`Primary Factor`, "VIEW OBSTRUCTED", "OTHER (DRIVER) - EXPLAIN IN NARRATIVE")) %>%
+  mutate(`Primary Factor` = str_replace(`Primary Factor`, "ALCOHOLIC BEVERAGES", "OTHER (DRIVER) - EXPLAIN IN NARRATIVE")) %>%
+  mutate(`Primary Factor` = str_replace(`Primary Factor`, "IMPROPER TURNING", "NONE (DRIVER)")) %>%
+  mutate(`Primary Factor` = str_replace(`Primary Factor`, "IMPROPER PASSING", "NONE (DRIVER)")) %>%
+  mutate(`Primary Factor` = str_replace(`Primary Factor`, "IMPROPER LANE USAGE", "NONE (DRIVER)")) %>%
+  mutate(`Primary Factor` = str_replace(`Primary Factor`, "TOW HITCH FAILURE", "NONE (DRIVER)")) %>%
+  mutate(`Primary Factor` = str_replace(`Primary Factor`, "JACKKNIFING", "NONE (DRIVER)")) %>%
+  mutate(`Primary Factor` = str_replace(`Primary Factor`, "TRAFFIC CONTROL INOPERATIVE/MISSING/OBSC", "OTHER (ENVIRONMENTAL) - EXPLAIN IN NARR")) %>%
+  mutate(`Primary Factor` = str_replace(`Primary Factor`, "ANIMAL/OBJECT IN ROADWAY", "ROADWAY OTHER (ENVIRONMENTAL) - EXPLAIN IN NARR")) %>%
+  mutate(`Primary Factor` = str_replace(`Primary Factor`, "SURFACE CONDITION", "OTHER (ENVIRONMENTAL) - EXPLAIN IN NARR")) %>%
+  mutate(`Primary Factor` = str_replace(`Primary Factor`, "LANE MARKING OBSCURED", "OTHER (ENVIRONMENTAL) - EXPLAIN IN NARR")) %>%
+  mutate(`Primary Factor` = str_replace(`Primary Factor`, "HOLES/RUTS IN SURFACE", "ROADWAY OTHER (ENVIRONMENTAL) - EXPLAIN IN NARR")) %>%
+  mutate(`Primary Factor` = str_replace(`Primary Factor`, "ROAD UNDER CONSTRUCTION", "ROADWAY OTHER (ENVIRONMENTAL) - EXPLAIN IN NARR")) %>%
+  mutate(`Primary Factor` = str_replace(`Primary Factor`, "SEVERE CROSSWINDS", "ROADWAY OTHER (ENVIRONMENTAL) - EXPLAIN IN NARR"))%>%
+  mutate(`Primary Factor` = str_replace(`Primary Factor`, "OBSTRUCTION NOT MARKED", "ROADWAY OTHER (ENVIRONMENTAL) - EXPLAIN IN NARR"))
 
 Month<-filter(tmp, Year == "2003")
 Mo<-filter(tmp, Year == "2011")
@@ -302,7 +328,7 @@ If we look at the overall 2003 to 2015 and look at 2003 only, we see that most o
 
 
 
-```{r, fig.height=15, fig.width=13, echo=FALSE, message=FALSE, warning=FALSE}
+```{r, fig.height=11, fig.width=12, echo=FALSE, message=FALSE, warning=FALSE}
 
 ggplot(tmp, aes(x = fct_rev(fct_infreq(`Primary Factor`)))) + 
   geom_bar(fill="steelblue")+
@@ -312,7 +338,7 @@ ggplot(tmp, aes(x = fct_rev(fct_infreq(`Primary Factor`)))) +
 
 For the overall years, the primary factor that for most of the accidents is "Failure to yield right of way" (Figure 12.), when the most - second factor is "Following too closely".
 
-```{r, fig.height=15, fig.width=13, echo=FALSE, message=FALSE, warning=FALSE}
+```{r, fig.height=11, fig.width=12, echo=FALSE, message=FALSE, warning=FALSE}
 ggplot(Month, aes(x = fct_rev(fct_infreq(`Primary Factor`)))) + 
   geom_bar(fill="darkgreen")+
   ggtitle("Figure 13. Primary factors of accidents, 2003") +
@@ -321,7 +347,7 @@ ggplot(Month, aes(x = fct_rev(fct_infreq(`Primary Factor`)))) +
 
 For the year of 2003, "Failure to yield right of way" is still the most factor that lead to accidents (Figure 13.), but the second factor is "Others". So the data of 2003 looks not much consistent to the overall data. 
 
-```{r, fig.height=15, fig.width=13, echo=FALSE, message=FALSE, warning=FALSE}
+```{r, fig.height=11, fig.width=12, echo=FALSE, message=FALSE, warning=FALSE}
 ggplot(Mo, aes(x = fct_rev(fct_infreq(`Primary Factor`)))) + 
   geom_bar(fill="steelblue")+
   ggtitle("Figure 14. Primary factors of accidents, 2011") +
