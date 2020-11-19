@@ -105,7 +105,7 @@ p<-tmp %>%
   summarize(count = n()) %>%
   ungroup() %>%
   ggplot(aes(x = hour, y = count, color = `wday`)) + 
-  geom_point(aes(frame = Year))+
+  geom_line(aes(frame = Year))+
   ggtitle("Day and time")
 ggplotly(p)
 
@@ -157,6 +157,8 @@ p<-tmp %>%
 ggplotly(p)
 
 ```
+
+## Conclusion
 
 ## Sources
 
