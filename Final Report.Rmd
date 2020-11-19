@@ -38,6 +38,8 @@ tmp <- Crash %>%
          minute = str_sub(hm, 3, 4) %>% parse_number()) %>%
   mutate(wday = c("Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday")[Day],
          wday_dec = Day + hour/24)
+Month<-filter(tmp, Year == "2003")
+Mo<-filter(tmp, Year == "2011")
 ```
 
 ## Introduction
@@ -92,47 +94,27 @@ Count<-table(tmp$Year)
 knitr::kable(Count)
 ```
 
-We see that 2003 was the year with the highest number of accidents (4625 cases) when 2011 has the lowest cases (3914). The first thing we did is compare 2003 with the overall years. After we found the trend, we will compare 2011 with the overall to verify our assumptio
+We see that 2003 was the year with the highest number of accidents (4625 cases) when 2011 has the lowest cases (3914). The first thing we did is compare 2003 with the overall years. After we found the trend, we will compare 2011 with the overall to verify our assumption.
 
 
-```{r, echo=FALSE, message=FALSE, warning=FALSE}
+```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.height=10, fig.width=10}
 
-ggplot(tmp, aes(x = Month)) + 
-  geom_line(stat = "count", aes(y = ..count..))+
-  geom_text(aes(Month, 6000, label=Month))+
-  ggtitle("Figure 1. Accidents month by month, 2003 to 2015") +
-  theme_minimal()
-
+tmp %>%
+  group_by(Year, Month, wday) %>%
+  summarize(count = n()) %>%
+  ungroup() %>%
+  ggplot(aes(x = Month, y = count, fill=wday)) + 
+  geom_col() + 
+  ggtitle("Figure 1. Overall accidents by day & month") +
+  facet_wrap(~Year)
+  
+  
 ```
 
-In Figure 1., we see the number of accidents peaking at two months: April and October. The peak in October is higher, indicate that month has the most accidents. From now we assume the trend "months of accidents" are April and October. 
+Figure 1. gives us a panoramic view of accidents through day, month, and years. As we specified above, 2003 and 2011 are our concern. Look at the graph; both 2003 and 2011 have the highest rate of accidents in October. And not just those two years, if we look at any other year, we still see that accidents tend to occur in October. The only exceptions are 2005 (with the most accidents happened in January) and 2008 (December).
 
-```{r, echo=FALSE, message=FALSE, warning=FALSE}
-Month<-filter(tmp, Year == "2003")
-ggplot(Month, aes(x = Month)) + 
-  geom_line(stat = "count", aes(y = ..count..))+
-  geom_text(aes(Month, 600, label=Month))+
-  ggtitle("Figure 2. Accidents month by month, 2003") +
-  theme_minimal()
-```
+Next, we look at the day. By the columns' stacking position, we can conclude that Friday is the day of most accidents. And this is consistent through the years, without exception.
 
-In Figure 2. we consider the year 2003 only, and we find that October is still the month with the most accidents. The 2nd place is not April but instead, February. So the "trend" is not working for 2003. 
-
-
-```{r, echo=FALSE, message=FALSE, warning=FALSE, figures-side, fig.show="hold", out.width="70%"}
-
-ggplot(tmp, aes(x = wday)) + 
-  geom_bar(fill="brown")+
-  ggtitle("Figure 3. Accidents day by day, 2003 to 2015") +
-  theme_minimal()
-
-ggplot(Month, aes(x = wday)) + 
-  geom_bar(fill="steelblue")+
-  ggtitle("Figure 4. Accidents day by day, 2003") +
-  theme_minimal()
-```
-
-Figures 3. and 4.shows that Friday is the day with most accidents happened through overall years. So the data of 2003 consistent with the overall data. 
 
 ```{r, echo=FALSE, message=FALSE, warning=FALSE}
 tmp %>%
@@ -141,10 +123,10 @@ tmp %>%
   ungroup() %>%
   ggplot(aes(x = hour, y=count, color=wday)) + 
   geom_line()+
-  ggtitle("Figure 5. Accidents hour by hour, 2003 to 2015")
+  ggtitle("Figure 2. Accidents by day and time, 2003 to 2015")
 ```
 
-Figure 5 allows us to see both of the times and days of crashes. By the shape of the lines, we predict that the accidents tend to happen in the daytime, starting at 7 am and peaking at 5 pm. Also, evening and night time still have a decent amount of collisions compared to the dawn time. Also, notice that the shapes of these lines look similar to each other.
+Figure 2. allows us to see both of the times and days of crashes. By the shape of the lines, we predict that most of the accidents tend to happen in the afternoon, with peaking at 5 pm. Also, evening and night time still have a decent amount of collisions compared to the dawn time. As we specified above, Friday is the day with most accidents, and the lines in this chart prove it. 
 
 ```{r, echo=FALSE, message=FALSE, warning=FALSE}
 Month %>%
@@ -153,14 +135,28 @@ Month %>%
   ungroup() %>%
   ggplot(aes(x = hour, y=count, color=wday)) + 
   geom_line()+
-  ggtitle("Figure 6. Accidents hour by hour, 2003")
-
+  ggtitle("Figure 3. Accidents by day and time, 2003")
 
 ```
 
-Figure 6. has the same function as Figure 5. It shows us the times and days of accidents. Notice that the line represent "Friday" peaked higher than other lines. This is consistent with what we are assuming about the data: Friday has the most severe accidents. 
+Figure 3. lets us see the times and days of accidents. And we still see the red line (Friday) peaks higher than other lines. For the time, there are two peaks: at 3 pm, and at 5 pm. 
 
-Let take a look at the tables of frequency accidents below. If we assume that weekdays include: Monday, Tuesday, Wednesday, Thursday, Friday, and weekend have Saturday and Sunday; thus, we have to divide the number of weekday by five and divide the number of the weekend by two. It would be fair if we compare the two mean values rather than the number of observations. 
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+
+Mo %>%
+  group_by(hour, wday) %>%
+  summarize(count = n()) %>%
+  ungroup() %>%
+  ggplot(aes(x = hour, y=count, color=wday)) + 
+  geom_line()+
+  ggtitle("Figure 4. Accidents by day and time, 2011")
+
+```
+
+
+In Figure 4., we see that accidents mostly happen on Friday afternoon, but the peaking is at 4 pm instead of 5 pm.
+
+Let take a look at the tables of frequency accidents below. If we assume that weekdays include: Monday, Tuesday, Wednesday, Thursday, Friday, and weekend have Saturday and Sunday; thus, we have to divide the number of weekday by five and divide the number of the weekend by two if we want a fair comparison. 
 
 ```{r, error = T, echo=FALSE, message=FALSE, warning=FALSE, results='markup'}
 We<-table(tmp$`Weekend?`)
@@ -183,54 +179,77 @@ The mean accidents for weekday = 696.
 
 The mean accidents for weekend = 561.
 
-```{r, echo=FALSE, message=FALSE, warning=FALSE}
+We did the same thing for the table frequency 2011 below:
 
-tmp %>%
-  group_by(hour, `Weekend?`, Year) %>%
-  summarize(count = n()) %>%
-  ungroup() %>%
-  ggplot(aes(x = hour, y = count, color = `Weekend?`)) + 
-  geom_line(aes(frame = Year))+
-  ggtitle("Figure 7. Weekend or weekdays?")
+```{r, error = T, echo=FALSE, message=FALSE, warning=FALSE, results='markup'}
+We2<-table(Mo$`Weekend?`)
+knitr::kable(We2)
 ```
 
-As 8121 > 6636 and 696 > 561, we conclude that accidents tend to appear on weekdays rather than on the weekend. Figure 7. shows the relationship between hours and weekdays. Notice that the peak is around 5 pm, and so consistent with what we are assuming about the data: Most of the accidents happened in the evening. 
+The mean accidents for weekday = 597.
+
+The mean accidents for weekend = 509.
+
 
 ```{r, echo=FALSE, message=FALSE, warning=FALSE}
+
 tmp %>%
-  group_by( `Injury Type`, Month) %>%
+  group_by(`Weekend?`, Year) %>%
   summarize(count = n()) %>%
   ungroup() %>%
-  ggplot(aes(x = Month, y = count, color = `Injury Type`)) + 
+  ggplot(aes(x = Year, y = count, color = `Weekend?`)) + 
   geom_line()+
-  ggtitle("Figure 8. Injury types, 2003 to 2015")
+  ggtitle("Figure 5. Weekday vs. Weekend")
+```
+
+As 8121 > 6636, 696 > 561, and 597 > 509, we conclude that accidents tend to appear on weekdays rather than on the weekend. Figure 7. shows the relationship between hours and weekdays. Notice that the peak is around 5 pm, and so consistent with what we are assuming about the data: Most of the accidents happened in the evening. 
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+tmp %>%
+  group_by(`Injury Type`, Year) %>%
+  summarize(count = n()) %>%
+  ungroup() %>%
+  ggplot(aes(x = Year, y = count, color = `Injury Type`)) + 
+  geom_line()+
+  ggtitle("Figure 6. Injuries through years")
 
 ```
 
-Next, we look at the fatal rate. There are four types of injury: Fatal, incapacitating, no injury/ unknown, and non-incapacitating.
+We then look at the fatal rate. There are four types of injuries: Fatal, incapacitating, no injury/ unknown, and non-incapacitating. In Figure 6., we see that the number of no injury/unknown is more than other categories. 
 
 ```{r, echo=FALSE, message=FALSE, warning=FALSE}
 Month %>%
-  group_by( `Injury Type`, Month) %>%
+  group_by(`Injury Type`, Month) %>%
   summarize(count = n()) %>%
   ungroup() %>%
   ggplot(aes(x = Month, y = count, color = `Injury Type`)) + 
   geom_line()+
-  ggtitle("Figure 9. Injury types, 2003")
+  ggtitle("Figure 7. Injuries over months in 2003")
 
 ```
 
 Luckily, most of the accidents result in no injury. The number of incapacitating and fatal cases was not high. The data looks consistent for both overall years and 2003 (Figure 8. and Figure 9.).
  
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+Mo %>%
+  group_by( `Injury Type`, Month) %>%
+  summarize(count = n()) %>%
+  ungroup() %>%
+  ggplot(aes(x = Month, y = count, color = `Injury Type`)) + 
+  geom_line()+
+  ggtitle("Figure 8. Injuries over months in 2011")
+
+``` 
+ 
 
 ```{r, echo=FALSE, message=FALSE, warning=FALSE}
 tmp %>%
-  group_by(`Collision Type`, Month) %>%
+  group_by(`Collision Type`, Month, wday) %>%
   summarize(count = n()) %>%
   ungroup() %>%
-  ggplot(aes(x = Month, y = count)) + 
+  ggplot(aes(x = Month, y = count, fill=wday)) + 
   geom_col() + 
-  ggtitle("Figure 10. Collision types, 2003 to 2015") +
+  ggtitle("Figure 9. Vehicles involved, 2003 to 2015") +
   facet_wrap(~`Collision Type`)
 
 ```
@@ -240,21 +259,34 @@ Figure 10. and Figure 11. tell us about the type of crash: How many vehicles inv
 ```{r, echo=FALSE, message=FALSE, warning=FALSE}
 tmp %>%
   filter(Year == "2003") %>%
-  group_by(`Collision Type`, Month) %>%
+  group_by(`Collision Type`, Month, wday) %>%
   summarize(count = n()) %>%
   ungroup() %>%
-  ggplot(aes(x = Month, y = count)) + 
+  ggplot(aes(x = Month, y = count, fill=wday)) + 
   geom_col() + 
-  ggtitle("Figure 11. Collision types, 2003") +
+  ggtitle("Figure 10. Vehicles involved, 2003") +
   facet_wrap(~`Collision Type`)
 
 ```
 
 If we look at the overall 2003 to 2015 and look at 2003 only, we see that most of the accidents are the collision between two cars. Notice that the x-axis of the charts represent the months, and we see that the highest column is October, which is consistent with what we are assuming about the data. 
 
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+tmp %>%
+  filter(Year == "2011") %>%
+  group_by(`Collision Type`, Month, wday) %>%
+  summarize(count = n()) %>%
+  ungroup() %>%
+  ggplot(aes(x = Month, y = count, fill=wday)) + 
+  geom_col() + 
+  ggtitle("Figure 11. Vehicles involved, 2011") +
+  facet_wrap(~`Collision Type`)
+
+```
+
 ```{r, fig.height=20, fig.width=15, echo=FALSE, message=FALSE, warning=FALSE}
 ggplot(tmp, aes(x = fct_rev(fct_infreq(`Primary Factor`)))) + 
-  geom_bar()+
+  geom_bar(fill="steelblue")+
   ggtitle("Figure 12. Primary factors of accidents, 2003 to 2015") +
   theme_minimal()+ coord_flip()
 ```
@@ -263,94 +295,18 @@ For the overall years, the primary factor that for most of the accidents is "Fai
 
 ```{r, fig.height=20, fig.width=15, echo=FALSE, message=FALSE, warning=FALSE}
 ggplot(Month, aes(x = fct_rev(fct_infreq(`Primary Factor`)))) + 
-  geom_bar()+
+  geom_bar(fill="darkgreen")+
   ggtitle("Figure 13. Primary factors of accidents, 2003") +
   theme_minimal()+ coord_flip()
 ```
 For the year of 2003, "Failure to yield right of way" is still the most factor that lead to accidents (Figure 13.), but the second factor is "Others". So the data of 2003 looks not much consistent to the overall data. 
 
-We can summarize some of the key-words about "trending" accidents in Monroe - county: Most accidents occurred on:
-
-* October (and April).
-* Friday, afternoon (around 5 pm). 
-* Almost the crashes are between two cars.
-* Most of the results is no injury. 
-* The primary factor that cause the collisions is Failure to yield right of the way. The most - second factor is Following too closely.
-
-We have look at the year with highest accidents, now we investigate the year with lowest accidents. Recall from Figure 1., we know that years is 2011. We then look at all factors of this year: Month, day, hour, injury type, collision type, and primary factor.
-
-```{r, echo=FALSE, message=FALSE, warning=FALSE}
-Mo<-filter(tmp, Year == "2011")
-ggplot(Mo, aes(x = Month)) + 
-  geom_line(stat = "count", aes(y = ..count..))+
-  geom_text(aes(Month, 600, label=Month))+
-  ggtitle("Figure 14. Accidents month by month, 2011") +
-  theme_minimal()
-```
-
-In Figure 15., we saw the peaks at October and April. And this is consistent with what we assuming about the overall data. 
-
-```{r, echo=FALSE, message=FALSE, warning=FALSE}
-
-ggplot(Mo, aes(x = wday)) + 
-  geom_bar(fill="steelblue")+
-  ggtitle("Fig. 15. Accidents day by day, 2011") +
-  theme_minimal()
-```
-
-It looks like Friday is still the day with the most cases (Figure 16.). The data of 2011 looks consistent with the overall and 2003 data.
-
-
-```{r, echo=FALSE, message=FALSE, warning=FALSE}
-
-Mo %>%
-  group_by(hour, wday) %>%
-  summarize(count = n()) %>%
-  ungroup() %>%
-  ggplot(aes(x = hour, y=count, color=wday)) + 
-  geom_line()+
-  ggtitle("Figure 16. Accidents hour by hour, 2011")
-
-```
-
-Figure 17. show us the time for most of the accidents is afternoon, and it peaking at 4 pm. The 2011 data looks not consistent with what we are assuming about the overall data.
-
-
-```{r, echo=FALSE, message=FALSE, warning=FALSE}
-Mo %>%
-  group_by( `Injury Type`, Month) %>%
-  summarize(count = n()) %>%
-  ungroup() %>%
-  ggplot(aes(x = Month, y = count, color = `Injury Type`)) + 
-  geom_line()+
-  ggtitle("Figure 17. Injury types, 2011")
-
-```
-Most of the accidents result in no injury (Figure 18.). This is consistent with what we are assuming about the data.
-
-```{r, echo=FALSE, message=FALSE, warning=FALSE}
-tmp %>%
-  filter(Year == "2011") %>%
-  group_by(`Collision Type`, Month) %>%
-  summarize(count = n()) %>%
-  ungroup() %>%
-  ggplot(aes(x = Month, y = count)) + 
-  geom_col() + 
-  ggtitle("Figure 18. Collision types, 2011") +
-  facet_wrap(~`Collision Type`)
-
-```
-
-Figure 19. let us know that most of the crashes are collisions between two cars.This is consistent with what we are assuming about the data.
-
 ```{r, fig.height=20, fig.width=15, echo=FALSE, message=FALSE, warning=FALSE}
 ggplot(Mo, aes(x = fct_rev(fct_infreq(`Primary Factor`)))) + 
-  geom_bar()+
-  ggtitle("Figure 19. Primary factors of accidents, 2011") +
+  geom_bar(fill="steelblue")+
+  ggtitle("Figure 14. Primary factors of accidents, 2011") +
   theme_minimal()+ coord_flip()
 ```
-
-For 2011, "Failure to yield right of way" is still the most factor that lead to accidents (Figure 19.), when the most - second factor is "Following too closely." It looks like the data is consistent with what we are assuming about the overall data.
 
 
 ## Conclusion
