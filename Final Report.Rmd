@@ -177,7 +177,7 @@ Month %>%
 
 ```
 
-Figure 3. lets us see the times and days of accidents. And we still see the red line (Friday) peaks higher than other lines. For the time, there are two peaks: at 3 pm, and at 5 pm. 
+In Figure 3., we still see the red line (Friday) peaks higher than other lines. And the time of crashes still in the afternoon, peaked at 5 pm.
 
 ```{r, echo=FALSE, message=FALSE, warning=FALSE}
 
@@ -194,7 +194,7 @@ Mo %>%
 
 In Figure 4., we see that accidents mostly happen on Friday afternoon, but the peaking is at 4 pm instead of 5 pm.
 
-Let take a look at the tables of frequency accidents below. If we assume that weekdays include: Monday, Tuesday, Wednesday, Thursday, Friday, and weekend have Saturday and Sunday; thus, we have to divide the number of weekday by five and divide the number of the weekend by two if we want a fair comparison. 
+Next, we examine the difference between the weekday and the weekend. Let's take a look at the tables of frequency accidents below. If we assume that weekdays include: Monday, Tuesday, Wednesday, Thursday, Friday, and weekend have Saturday and Sunday; thus, we have to divide the number of weekday by five and divide the number of the weekend by two.
 
 ```{r, error = T, echo=FALSE, message=FALSE, warning=FALSE, results='markup'}
 We<-table(tmp$`Weekend?`)
@@ -241,7 +241,7 @@ tmp %>%
   ggtitle("Figure 5. Weekday vs. Weekend")
 ```
 
-In Figure 5., the line "weekend" looks steady through the years. The line "weekday" has some curves, indicate the change in the number of accidents. From 2004 to 2011, the cases dropped, but then it increased again. 
+In Figure 5., the red line (weekend) looks steady through the years, while the aqua line (weekday) has some curves that go up and down, indicate the change in the number of accidents.  The cases dropped from 2004 to 2011, but after that they increased again. 
 
 ```{r, echo=FALSE, message=FALSE, warning=FALSE}
 tmp %>%
@@ -254,7 +254,7 @@ tmp %>%
 
 ```
 
-Figure 6. lets us see the change of injury type through the years, and we see that the number of no injury/unknown is more than other categories.  Also, the number of "no injury" cases dropped in 2004 - 2005 and 2009 - 2012. After that, it is increasing again when the number of "non-incapacitating" keeps decreasing.
+Figure 6. lets us see the type of injuries through the years, and we see that the number of no injury/unknown is more than other categories.  The number of "no injury" cases dropped in 2004 - 2005 and 2009 - 2012. After that, it increases again, when the number of "non-incapacitating" keeps decreasing, and the "incapacitating" cases started to increase in 2014.
 
 
 ```{r, echo=FALSE, message=FALSE, warning=FALSE}
@@ -268,7 +268,7 @@ Month %>%
 
 ```
 
-Luckily, most of the accidents result in no injury. The number of incapacitating and fatal cases was not high. The data looks consistent for both overall years and 2003 (Figure 8. and Figure 9.).
+Figure 7. shows us the change of injuries through the months of 2003. As we mentioned many times in this project, the accidents tend to happen mostly in October. That is why we see the peaks appeared in both "no injury" and non-incapacitating lines. 
  
 ```{r, echo=FALSE, message=FALSE, warning=FALSE}
 Mo %>%
