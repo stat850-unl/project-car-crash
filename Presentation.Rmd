@@ -153,10 +153,20 @@ p<-tmp %>%
   ungroup() %>%
   ggplot(aes(x = hour, y = count, color = `Collision Type`)) + 
   geom_line(aes(frame = Year))+
-  ggtitle("Type of injuries")
+  ggtitle("Vehicles involved")
 ggplotly(p)
 
 ```
+
+## Primary factor {.smaller}
+
+```{r, fig.height=12, fig.width=8, echo=FALSE, message=FALSE, warning=FALSE}
+ggplot(tmp, aes(x = fct_rev(fct_infreq(`Primary Factor`)))) + 
+  geom_bar(fill="steelblue")+
+  ggtitle("Primary factors of accidents, 2003 to 2015") +
+  theme_minimal()+ coord_flip()
+```
+
 
 ## Conclusion
 
