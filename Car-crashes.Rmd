@@ -31,25 +31,64 @@ tmp <- Crash %>%
          hour = str_sub(hm, 1, 2) %>% parse_number(),
          minute = str_sub(hm, 3, 4) %>% parse_number()) %>%
   mutate(wday = c("Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday")[Day],
-         wday_dec = Day + hour/24)
+         wday_dec = Day + hour/24) %>%
+  mutate(`Primary Factor` = str_replace(`Primary Factor`, "UTILITY WORK", "ROADWAY OTHER (ENVIRONMENTAL) - EXPLAIN IN NARR"))%>%
+  mutate(`Primary Factor` = str_replace(`Primary Factor`, "VIOLATION OF LICENSE RESTRICTION", "DRIVER LICENSE"))%>%
+  mutate(`Primary Factor` = str_replace(`Primary Factor`, "TIRE FAILURE OR DEFECTIVE", "BRAKE FAILURE OR DEFECTIVE"))%>%
+  mutate(`Primary Factor` = str_replace(`Primary Factor`, "ENGINE FAILURE OR DEFECTIVE", "BRAKE FAILURE OR DEFECTIVE"))%>%
+   mutate(`Primary Factor` = str_replace(`Primary Factor`, "STEERING FAILURE", "BRAKE FAILURE OR DEFECTIVE")) %>%
+  mutate(`Primary Factor` = str_replace(`Primary Factor`, "HEADLIGHT DEFECTIVE OR NOT ON", "BRAKE FAILURE OR DEFECTIVE"))%>%
+  mutate(`Primary Factor` = str_replace(`Primary Factor`, "ACCELERATOR FAILURE OR DEFECTIVE", "BRAKE FAILURE OR DEFECTIVE"))%>%
+  mutate(`Primary Factor` = str_replace(`Primary Factor`, "BRAKE FAILURE OR DEFECTIVE", "NONE (VEHICLE)"))%>%
+  mutate(`Primary Factor` = str_replace(`Primary Factor`, "OTHER LIGHTS DEFECTIVE", "NONE (VEHICLE)"))%>%
+  mutate(`Primary Factor` = str_replace(`Primary Factor`, "PASSENGER DISTRACTION", "DRIVER DISTRACTED - EXPLAIN IN NARRATIVE"))%>%
+   mutate(`Primary Factor` = str_replace(`Primary Factor`, "DRIVER ASLEEP OR FATIGUED", "OTHER (DRIVER) - EXPLAIN IN NARRATIVE"))%>%
+   mutate(`Primary Factor` = str_replace(`Primary Factor`, "GLARE", "OTHER (DRIVER) - EXPLAIN IN NARRATIVE"))%>%
+  mutate(`Primary Factor` = str_replace(`Primary Factor`, "SHOULDER DEFECTIVE", "OTHER (DRIVER) - EXPLAIN IN NARRATIVE"))%>%
+  mutate(`Primary Factor` = str_replace(`Primary Factor`, "INSECURE/LEAKY LOAD", "OTHER (DRIVER) - EXPLAIN IN NARRATIVE"))%>%
+  mutate(`Primary Factor` = str_replace(`Primary Factor`, "CELL PHONE USAGE", "OTHER (DRIVER) - EXPLAIN IN NARRATIVE"))%>%
+  mutate(`Primary Factor` = str_replace(`Primary Factor`, "DRIVER LICENSE", "NONE (DRIVER)"))%>%
+  mutate(`Primary Factor` = str_replace(`Primary Factor`, "DRIVER ILLNESS", "NONE (DRIVER)")) %>%
+  mutate(`Primary Factor` = str_replace(`Primary Factor`, "OVERSIZE/OVERWEIGHT LOAD", "NONE (DRIVER)")) %>%
+  mutate(`Primary Factor` = str_replace(`Primary Factor`, "OVERCORRECTING/OVERSTEERING", "OTHER (DRIVER) - EXPLAIN IN NARRATIVE")) %>%
+  mutate(`Primary Factor` = str_replace(`Primary Factor`, "OTHER TELEMATICS IN USE", "OTHER (DRIVER) - EXPLAIN IN NARRATIVE")) %>%
+  mutate(`Primary Factor` = str_replace(`Primary Factor`, "ILLEGAL DRUGS", "OTHER (DRIVER) - EXPLAIN IN NARRATIVE")) %>%
+  mutate(`Primary Factor` = str_replace(`Primary Factor`, "PRESCRIPTION DRUGS", "NONE (DRIVER)")) %>%
+  mutate(`Primary Factor` = str_replace(`Primary Factor`, "VIEW OBSTRUCTED", "OTHER (DRIVER) - EXPLAIN IN NARRATIVE")) %>%
+  mutate(`Primary Factor` = str_replace(`Primary Factor`, "ALCOHOLIC BEVERAGES", "OTHER (DRIVER) - EXPLAIN IN NARRATIVE")) %>%
+  mutate(`Primary Factor` = str_replace(`Primary Factor`, "IMPROPER TURNING", "NONE (DRIVER)")) %>%
+  mutate(`Primary Factor` = str_replace(`Primary Factor`, "IMPROPER PASSING", "NONE (DRIVER)")) %>%
+  mutate(`Primary Factor` = str_replace(`Primary Factor`, "IMPROPER LANE USAGE", "NONE (DRIVER)")) %>%
+  mutate(`Primary Factor` = str_replace(`Primary Factor`, "TOW HITCH FAILURE", "NONE (DRIVER)")) %>%
+  mutate(`Primary Factor` = str_replace(`Primary Factor`, "JACKKNIFING", "NONE (DRIVER)")) %>%
+  mutate(`Primary Factor` = str_replace(`Primary Factor`, "TRAFFIC CONTROL INOPERATIVE/MISSING/OBSC", "OTHER (ENVIRONMENTAL) - EXPLAIN IN NARR")) %>%
+  mutate(`Primary Factor` = str_replace(`Primary Factor`, "ANIMAL/OBJECT IN ROADWAY", "ROADWAY OTHER (ENVIRONMENTAL) - EXPLAIN IN NARR")) %>%
+  mutate(`Primary Factor` = str_replace(`Primary Factor`, "SURFACE CONDITION", "OTHER (ENVIRONMENTAL) - EXPLAIN IN NARR")) %>%
+  mutate(`Primary Factor` = str_replace(`Primary Factor`, "LANE MARKING OBSCURED", "OTHER (ENVIRONMENTAL) - EXPLAIN IN NARR")) %>%
+  mutate(`Primary Factor` = str_replace(`Primary Factor`, "HOLES/RUTS IN SURFACE", "ROADWAY OTHER (ENVIRONMENTAL) - EXPLAIN IN NARR")) %>%
+  mutate(`Primary Factor` = str_replace(`Primary Factor`, "ROAD UNDER CONSTRUCTION", "ROADWAY OTHER (ENVIRONMENTAL) - EXPLAIN IN NARR")) %>%
+  mutate(`Primary Factor` = str_replace(`Primary Factor`, "SEVERE CROSSWINDS", "ROADWAY OTHER (ENVIRONMENTAL) - EXPLAIN IN NARR"))%>%
+  mutate(`Primary Factor` = str_replace(`Primary Factor`, "OBSTRUCTION NOT MARKED", "ROADWAY OTHER (ENVIRONMENTAL) - EXPLAIN IN NARR"))
+
 Month<-filter(tmp, Year == "2003")
 Mo<-filter(tmp, Year == "2011")
 ```
 
-# Introduction
+## Introduction
 
 Automobiles are an indispensable part of life. Thanks to them that travel, transaction, business, and even medical problems has been improving. But they also carry risks that affect human life. People's need is higher and higher, so the number of vehicles must also increase, which entails many consequences such as traffic congestion and accidents. Every day, with hundreds of millions of car trips moving continuously across the country, the chance that one person might find him/herself get involved in an accident is not small.
 
-Monroe County is part of the Bloomington, Indiana. It was formed in 1818 from portions of Orange County, and named after James Monroe, the fifth President of the United States (in office from 1817 - 1825). The 2010 United States Census report that the population was 137,974, the total area is 411.32 square miles (1,065.3 km2), of which 394.51 square miles (1,021.8 km2) (or 95.91%) is land and 16.81 square miles (43.5 km2) (or 4.09%) is water. The county terrain is low rolling hills, covered with vegetation and largely devoted to agricultural use or urban development. [1] 
+Monroe County is part of the Bloomington, Indiana. It was formed in 1818 from portions of Orange County, and named after the fifth President of the United States, James Monroe. The 2010 United States Census report that the population was 137,974, the total area is 411.32 square miles (1,065.3 km2), of which 394.51 square miles (1,021.8 km2) (or 95.91%) is land and 16.81 square miles (43.5 km2) (or 4.09%) is water. The county terrain is low rolling hills, covered with vegetation and largely devoted to agricultural use or urban development. [1] 
 
 The data use in this project is accidents reported in Monroe County from 2003 to 2015. There are more than 53.000 observations (cases reported) and many variables, like:
 
-* Day/ Month/ Year/ Hour (that accidents occurred). 
-* Collision type: How many cars involved?  
-* What kind of injuries? 
-* What is the primary reason that causes accidents to happen?
- 
++ Day/ Month/ Year/ Hour (that accidents occurred). 
++ Collision type: Type of vehicles involved?  
++ Injury Types: Fatal, incapacitating, no injury/ unknown, and non-incapacitating.
++ Primary factors that cause accidents: Following too closely, unsafe backing, etc.
 
+There are three columns representing the locations of accidents (the address), along with the longitude and latitude. But we do not know how to make the map with the name of the location. We could not use the longitude and the latitude, either, since they are the same for almost 53.000 observations. 
+ 
 Some questions I want to find out through the data:
 
   - Which year has the highest rate of accident? On what month? Is that month consistent for all other years? 
@@ -57,40 +96,33 @@ Some questions I want to find out through the data:
   - On that day (month/ year), what is the primary factor that causes the accident? What are the highest injuries? 
   - What can we conclude about driving habit of citizen of Monroe county?
   
-# Methods
+## Methods
 
-Comparing the overall with a specific year to find the "trend" of accidents.
+We compared the overall with specific years to find the "trend" of accidents.
 
-* Find the year that has the most accidents occurred. Call it Result. 1
-* Among the years, find the month that has the highest accidents. Call it Result. 2
-  - Look at the year found in Result. 1, then, find the month has the most accidents. Call it Result. 3. 
-  - Compare Result. 3 with Result. 2. 
-* Among the years, look at the day with most accidents, identify if it weekday or weekend. Call it Result. 4
-  - Look at the Result. 1 and find which type of day has more accidents. Call it Result. 5. 
-  - Compare Result. 5 and Result. 4. 
-* Among the years, find the hour (in a 24-hour format) with the highest accidents. Call it Result. 6
-  - Look at Result. 1 and find which hour has the most accidents. Call it Result. 7
-  - Compare Result. 6 and Result. 7. 
-* Among the years, look for the primary factor that causes accidents. Call it Result. 8
-  - Look at Result. 1 and find the primary factor for accidents. Call it Result. 9
-  - Compare Result. 8 and Result. 9. 
-* Look at the relationship between all the factors above. Conclude.
+* Find the years that have the highest and the lowest number of accidents. (1)
+* Look at the accidents through the month, day, hour, types of injury, collision types, and primary factors all over the years. Detect the trend.
+* Look at all factors mentioned above, but in the specific years that we have found from (1), to test how consistent those data are.  
+* We did not use any model in this project.
+* We have few calculations to compare the number of accidents on weekdays vs. the weekend.
+* Almost the results are present through graphics. 
+* For the "Primary Factor", since there are many categories, we decided to group some factor (so the reader can find it easy to read), but we still keep the main factor. So we don't have to show more graphs just to prove our point. 
 
 
-# Results
+## Results
 
-The frequency table below (and also the graph - Figure 1.) shows us that 2003 was the year with the most accidents: 4625 cases, when 2011 is has the lowest: 3914 cases. Now we compare the overall years with 2003. Then, we compare the overall with 2011.
+Consider a table below:
 
 ```{r, error = T, echo=FALSE, message=FALSE, warning=FALSE, results='markup'}
+library(ggplot2)
 Count<-table(tmp$Year)
 knitr::kable(Count)
-
 ```
 
 We see that 2003 was the year with the highest number of accidents (4625 cases) when 2011 has the lowest cases (3914). The first thing we did is compare 2003 with the overall years. After we found the trend, we will compare 2011 with the overall to verify our assumption.
 
 
-```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.height=10, fig.width=10}
+```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.height=8, fig.width=10}
 
 tmp %>%
   group_by(Year, Month, wday) %>%
@@ -106,8 +138,7 @@ tmp %>%
 
 Figure 1. gives us a panoramic view of accidents through day, month, and years. As we specified above, 2003 and 2011 are our concern. Look at the graph; both 2003 and 2011 have the highest rate of accidents in October. And not just those two years, if we look at any other year, we still see that accidents tend to occur in October. The only exceptions are 2005 (with the most accidents happened in January) and 2008 (December).
 
-Next, we look at the day. By the columns' stacking position, we can conclude that Friday is the day of most accidents. And this is consistent through the years, without exception.
-
+By the columns' stacking position, we can conclude that Friday is the day of most accidents. And this is consistent through the years, without exception. But we will keep examining this assumption through other factors below:
 
 ```{r, echo=FALSE, message=FALSE, warning=FALSE}
 tmp %>%
@@ -121,7 +152,7 @@ tmp %>%
 
 Figure 2. allows us to see both of the times and days of crashes. By the shape of the lines, we predict that most of the accidents tend to happen in the afternoon, with peaking at 5 pm. Also, evening and night time still have a decent amount of collisions compared to the dawn time. As we specified above, Friday is the day with most accidents, and the lines in this chart prove it. 
 
-```{r, echo=FALSE, message=FALSE, warning=FALSE}
+```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.height=9, fig.width=10}
 Month %>%
   group_by(hour, wday) %>%
   summarize(count = n()) %>%
@@ -132,9 +163,9 @@ Month %>%
 
 ```
 
-Figure 3. lets us see the times and days of accidents. And we still see the red line (Friday) peaks higher than other lines. For the time, there are two peaks: at 3 pm, and at 5 pm. 
+In Figure 3., we still see the red line (Friday) peaks higher than other lines. And the time of crashes still in the afternoon, peaked at 5 pm.
 
-```{r, echo=FALSE, message=FALSE, warning=FALSE}
+```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.height=10, fig.width=10}
 
 Mo %>%
   group_by(hour, wday) %>%
@@ -149,7 +180,7 @@ Mo %>%
 
 In Figure 4., we see that accidents mostly happen on Friday afternoon, but the peaking is at 4 pm instead of 5 pm.
 
-Let take a look at the tables of frequency accidents below. If we assume that weekdays include: Monday, Tuesday, Wednesday, Thursday, Friday, and weekend have Saturday and Sunday; thus, we have to divide the number of weekday by five and divide the number of the weekend by two if we want a fair comparison. 
+Next, we examine the difference between the weekday and the weekend. Let's take a look at the tables of frequency below. If we assume that weekdays include: Monday, Tuesday, Wednesday, Thursday, Friday, and weekend have Saturday and Sunday; thus, we have to divide the number of weekday by five and divide the number of the weekend by two, for a better comparison.
 
 ```{r, error = T, echo=FALSE, message=FALSE, warning=FALSE, results='markup'}
 We<-table(tmp$`Weekend?`)
@@ -196,7 +227,7 @@ tmp %>%
   ggtitle("Figure 5. Weekday vs. Weekend")
 ```
 
-In Figure 5., the line "weekend" looks steady through the years. The line "weekday" has some curves, indicate the change in the number of accidents. From 2004 to 2011, the cases dropped, but then it increased again. 
+In Figure 5., the red line (weekend) looks steady through the years, while the aqua line (weekday) has some curves that go up and down, indicate the change in the number of accidents.  The cases dropped from 2004 to 2011, but after that they increased again. 
 
 ```{r, echo=FALSE, message=FALSE, warning=FALSE}
 tmp %>%
@@ -209,7 +240,7 @@ tmp %>%
 
 ```
 
-Figure 6. lets us see the change of injury type through the years, and we see that the number of no injury/unknown is more than other categories.  Also, the number of "no injury" cases dropped in 2004 - 2005 and 2009 - 2012. After that, it is increasing again when the number of "non-incapacitating" keeps decreasing.
+Figure 6. lets us see the type of injuries through the years, and we see that the number of no injury/unknown is more than other categories.  The number of "no injury" cases dropped in 2004 - 2005 and 2009 - 2012. After that, it increases again, when the number of "non-incapacitating" keeps decreasing, and the "incapacitating" cases started to increase in 2014.
 
 
 ```{r, echo=FALSE, message=FALSE, warning=FALSE}
@@ -223,7 +254,7 @@ Month %>%
 
 ```
 
-Luckily, most of the accidents result in no injury. The number of incapacitating and fatal cases was not high. The data looks consistent for both overall years and 2003 (Figure 8. and Figure 9.).
+Figure 7. shows us the change of injuries through the months of 2003. As we mentioned many times in this project, the accidents tend to happen mostly in October. That is why we see the peaks appeared in both "no injury" and non-incapacitating lines. 
  
 ```{r, echo=FALSE, message=FALSE, warning=FALSE}
 Mo %>%
@@ -236,8 +267,9 @@ Mo %>%
 
 ``` 
  
+Figure 8 shows that the two lines peaked in April, May, and October, intimate that those months have many accidents happened. Also, the number of "no injury" cases still higher than in other categories. 
 
-```{r, echo=FALSE, message=FALSE, warning=FALSE}
+```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.height=8, fig.width=9}
 tmp %>%
   group_by(`Collision Type`, Month, wday) %>%
   summarize(count = n()) %>%
@@ -249,9 +281,9 @@ tmp %>%
 
 ```
 
-Figure 10. and Figure 11. tell us about the type of crash: How many vehicles involved? One, two, or three? Can it be the bus? Cyclist? Motorcycle? Pedestrian? 
+Figure 9. is multiple panels that separate the type of vehicles involved in an accident. We see that most of the crash is the collision between two cars. The number of one-car involved in an accident is decent. But the other types (more than three cars, bus, motorcycle) are not significant. Notice that "Friday" is on the top of the columns, implies that day is the day of most accidents.
 
-```{r, echo=FALSE, message=FALSE, warning=FALSE}
+```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.height=8, fig.width=9}
 tmp %>%
   filter(Year == "2003") %>%
   group_by(`Collision Type`, Month, wday) %>%
@@ -264,9 +296,9 @@ tmp %>%
 
 ```
 
-If we look at the overall 2003 to 2015 and look at 2003 only, we see that most of the accidents are the collision between two cars. Notice that the x-axis of the charts represent the months, and we see that the highest column is October, which is consistent with what we are assuming about the data. 
+Figure 10. tell us the same thing as Figure 9., as most of the accidents happened with two cars involved. 
 
-```{r, echo=FALSE, message=FALSE, warning=FALSE}
+```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.height=8, fig.width=9}
 tmp %>%
   filter(Year == "2011") %>%
   group_by(`Collision Type`, Month, wday) %>%
@@ -279,40 +311,42 @@ tmp %>%
 
 ```
 
-If we look at the overall 2003 to 2015 and look at 2003 only, we see that most of the accidents are the collision between two cars. Notice that the x-axis of the charts represent the months, and we see that the highest column is October, which is consistent with what we are assuming about the data. 
+Figure 11. has no difference from the other two figures: It shows us that most of the accidents happened on Friday, with two cars involved. 
 
+```{r, fig.height=7, fig.width=8, echo=FALSE, message=FALSE, warning=FALSE}
 
-
-```{r, fig.height=15, fig.width=13, echo=FALSE, message=FALSE, warning=FALSE}
 ggplot(tmp, aes(x = fct_rev(fct_infreq(`Primary Factor`)))) + 
   geom_bar(fill="steelblue")+
   ggtitle("Figure 12. Primary factors of accidents, 2003 to 2015") +
   theme_minimal()+ coord_flip()
 ```
 
-For the overall years, the primary factor that for most of the accidents is "Failure to yield right of way" (Figure 12.), when the most - second factor is "Following too closely".
+There are many factors for the causes of accidents, but we can distinguish them into three categories:  Driver, vehicle, and environment. For a better look at the graph, we have grouped some factors. But in Figure 12., the main reason "Failure to yield the right of way" is still the most common reason for most of the accidents. The second factor is from the driver, which includes using the cell phone when driving, using drugs, falling asleep, driver illness, etc. If not grouped, the typical second reason (for accidents) will be "following too closely". 
 
-```{r, fig.height=15, fig.width=13, echo=FALSE, message=FALSE, warning=FALSE}
+```{r, fig.height=7, fig.width=8, echo=FALSE, message=FALSE, warning=FALSE}
 ggplot(Month, aes(x = fct_rev(fct_infreq(`Primary Factor`)))) + 
   geom_bar(fill="darkgreen")+
   ggtitle("Figure 13. Primary factors of accidents, 2003") +
   theme_minimal()+ coord_flip()
 ```
 
-For the year of 2003, "Failure to yield right of way" is still the most factor that lead to accidents (Figure 13.), but the second factor is "Others". So the data of 2003 looks not much consistent to the overall data. 
+Figure 13. is the same as Figure 12. above: We grouped some factors for better visualization, but the main reason is not changing: Most accidents happened because the drivers failed to yield the right of way. And the second reason is from the driver: Illness, using drugs, distracted, etc. Notice that we use a different color for the bars to show the difference between 2003 and the overall data. For the overall years, the second reason is "follow too closely," but for 2003, the reason is "Other".  
 
-```{r, fig.height=15, fig.width=13, echo=FALSE, message=FALSE, warning=FALSE}
+```{r, fig.height=7, fig.width=8, echo=FALSE, message=FALSE, warning=FALSE}
 ggplot(Mo, aes(x = fct_rev(fct_infreq(`Primary Factor`)))) + 
   geom_bar(fill="steelblue")+
   ggtitle("Figure 14. Primary factors of accidents, 2011") +
   theme_minimal()+ coord_flip()
 ```
 
-For the year of 2003, "Failure to yield right of way" is still the most factor that lead to accidents (Figure 13.), but the second factor is "Others". So the data of 2003 looks not much consistent to the overall data. 
+Figure 14. is for 2011, and this data is consistent with the overall years. For both the first and the second reason (for accidents) are "Failure to yield the right of way" and "Following too closely." Also, notice that the vehicle and environmental factors are not contributed much to accidents through three graphs. We can conclude that most of the crashes happened because of the consciousness of the people. 
 
-# Conclusion
+## Conclusion
 
+After going through many graphics and some calculations, we can summarize the "trend" of accidents in Monroe county as:
 
++ Accidents are likely to occur on October Friday afternoon. The peaked time is around 4 pm to 5 pm. 
++ Most of the crashes are the collision between two cars. The primary factor that leads to the impact is "Failure to yield the right of way." 
 
 
 # Sources

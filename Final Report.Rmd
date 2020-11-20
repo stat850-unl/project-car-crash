@@ -351,11 +351,15 @@ ggplot(Mo, aes(x = fct_rev(fct_infreq(`Primary Factor`)))) +
   theme_minimal()+ coord_flip()
 ```
 
-Figure 14. is for the data of 2011, and this data is consistent with the overall years. For both the first and the second reason (for accidents) are "Failure to yield the right of way" and "Following too closely" (Notice that we have grouped some factors). 
+Figure 14. is for 2011, and this data is consistent with the overall years. For both the first and the second reason (for accidents) are "Failure to yield the right of way" and "Following too closely." Also, notice that the vehicle and environmental factors are not contributed much to accidents through three graphs. We can conclude that most of the crashes happened because of the consciousness of the people. 
 
 ## Conclusion
 
+After going through many graphics and some calculations, we can summarize the "trend" of accidents in Monroe county as:
 
+* Accidents are likely to occur on October Friday afternoon. The peaked time is around 4 pm to 5 pm. 
+
+* Most of the crashes are the collision between two cars. The primary factor that leads to the impact is "Failure to yield the right of way." 
 
 
 ## Sources

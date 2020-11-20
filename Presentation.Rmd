@@ -225,6 +225,10 @@ ggplot(Mo, aes(x = fct_rev(fct_infreq(`Primary Factor`)))) +
 ```
 
 ## Conclusion
+- After going through many graphics and some calculations, we can summarize the "trend" of accidents in Monroe county as:
+
+  + Accidents are likely to occur on October Friday afternoon. The peaked time is around 4 pm to 5 pm. 
+  + Most of the crashes are the collision between two cars. The primary factor that leads to the impact is "Failure to yield the right of way." 
 
 ## Sources
 
