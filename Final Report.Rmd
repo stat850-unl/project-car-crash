@@ -92,8 +92,9 @@ The data use in this project is accidents reported in Monroe County from 2003 to
 + Collision type: Type of vehicles involved?  
 + Injury Types: Fatal, incapacitating, no injury/ unknown, and non-incapacitating.
 + Primary factors that cause accidents: Following too closely, unsafe backing, etc.
- 
 
+There are three columns representing the locations of accidents (the address), along with the longitude and latitude. But we do not know how to make the map with the name of the location. We could not use the longitude and the latitude, either, since they are the same for almost 53.000 observations. 
+ 
 Some questions I want to find out through the data:
 
   - Which year has the highest rate of accident? On what month? Is that month consistent for all other years? 
@@ -103,23 +104,21 @@ Some questions I want to find out through the data:
   
 ## Methods
 
-Comparing the overall with specific years to find the "trend" of accidents.
+We compared the overall with specific years to find the "trend" of accidents.
 
-* Find the year that has the most accidents occurred. Call it Result. 1
-* Among the years, find the month that has the highest accidents. Call it Result. 2
-  - Look at the year found in Result. 1, then, find the month has the most accidents. Call it Result. 3. 
-  - Compare Result. 3 with Result. 2. 
-* Among the years, look at the day with most accidents, identify if it weekday or weekend. Call it Result. 4
-  - Look at the Result. 1 and find which type of day has more accidents. Call it Result. 5. 
-  - Compare Result. 5 and Result. 4. 
-* Among the years, find the hour (in a 24-hour format) with the highest accidents. Call it Result. 6
-  - Look at Result. 1 and find which hour has the most accidents. Call it Result. 7
-  - Compare Result. 6 and Result. 7. 
-* Among the years, look for the primary factor that causes accidents. Call it Result. 8
-  - Look at Result. 1 and find the primary factor for accidents. Call it Result. 9
-  - Compare Result. 8 and Result. 9. 
-* Repeat the same process, but with the year that has lowest cases.
-* Look at the relationship between all the factors above. Draw conclusion.
+* Find the years that have the highest and the lowest number of accidents. (1)
+
+* Look at the accidents through the month, day, hour, types of injury, collision types, and primary factors all over the years. Detect the trend.
+
+* Look at all factors mentioned above, but in the specific years that we have found from (1), to test how consistent those data are.  
+
+* We did not use any model in this project.
+
+* We have few calculations to compare the number of accidents on weekdays vs. the weekend.
+
+* Almost the results are present through graphics. 
+
+* For the "Primary Factor", since there are many categories, we decided to group some factor (so the reader can find it easy to read), but we still keep the main factor. So we don't have to show more graphs just to prove our point. 
 
 
 ## Results
@@ -334,7 +333,7 @@ ggplot(tmp, aes(x = fct_rev(fct_infreq(`Primary Factor`)))) +
   theme_minimal()+ coord_flip()
 ```
 
-There are many factors for the causes of accidents, but we can distinguish them into three categories:  Driver, vehicle, and environment. For a better look at the graph, we have grouped some factors, but the main reason: "Failure to yield the right of way," is still the most common reason for most of the accidents. The second factor is from the driver, which includes using the cell phone when driving, using drugs, falling asleep, driver illness, etc. If not grouped, the typical second reason (for accidents) will be "following too closely". 
+There are many factors for the causes of accidents, but we can distinguish them into three categories:  Driver, vehicle, and environment. For a better look at the graph, we have grouped some factors. But in Figure 12., the main reason "Failure to yield the right of way" is still the most common reason for most of the accidents. The second factor is from the driver, which includes using the cell phone when driving, using drugs, falling asleep, driver illness, etc. If not grouped, the typical second reason (for accidents) will be "following too closely". 
 
 ```{r, fig.height=7, fig.width=8, echo=FALSE, message=FALSE, warning=FALSE}
 ggplot(Month, aes(x = fct_rev(fct_infreq(`Primary Factor`)))) + 
@@ -343,7 +342,7 @@ ggplot(Month, aes(x = fct_rev(fct_infreq(`Primary Factor`)))) +
   theme_minimal()+ coord_flip()
 ```
 
-For the year of 2003, "Failure to yield right of way" is still the most factor that lead to accidents (Figure 13.), but the second factor is "Others". So the data of 2003 looks not much consistent to the overall data. 
+Figure 13. is the same as Figure 12. above: We grouped some factors for better visualization, but the main reason is not changing: Most accidents happened because the drivers failed to yield the right of way. And the second reason is from the driver: Illness, using drugs, distracted, etc. Notice that we use a different color for the bars to show the difference between 2003 and the overall data. For the overall years, the second reason is "follow too closely," but for 2003, the reason is "Other".  
 
 ```{r, fig.height=7, fig.width=8, echo=FALSE, message=FALSE, warning=FALSE}
 ggplot(Mo, aes(x = fct_rev(fct_infreq(`Primary Factor`)))) + 
@@ -352,7 +351,7 @@ ggplot(Mo, aes(x = fct_rev(fct_infreq(`Primary Factor`)))) +
   theme_minimal()+ coord_flip()
 ```
 
-For the year of 2003, "Failure to yield right of way" is still the most factor that lead to accidents (Figure 13.), but the second factor is "Others". So the data of 2003 looks not much consistent to the overall data. 
+Figure 14. is for the data of 2011, and this data is consistent with the overall years. For both the first and the second reason (for accidents) are "Failure to yield the right of way" and "Following too closely" (Notice that we have grouped some factors). 
 
 ## Conclusion
 
