@@ -224,12 +224,17 @@ ggplot(Mo, aes(x = fct_rev(fct_infreq(`Primary Factor`)))) +
   theme_minimal()+ coord_flip()
 ```
 
-## Conclusion
-- After going through many graphics and some calculations, we can summarize the "trend" of accidents in Monroe county as:
+## Conclusion {.smaller}
+- After going through many graphics and some calculations, we can conclude about the "trend" of accidents in Monroe county as:
 
   + Accidents are likely to occur on October Friday afternoon. The peaked time is around 4 pm to 5 pm. 
   + Most of the crashes are the collision between two cars. The primary factor that leads to the impact is "Failure to yield the right of way." 
+  + Residents' consciousness in traffic is problematic.
+  
 
 ## Sources
 
-[1] https://en.wikipedia.org/wiki/Monroe_County,_Indiana
+- [1] https://en.wikipedia.org/wiki/ Monroe_County,_Indiana
+- [2] https://en.wikipedia.org/wiki/ 2003_Indiana_Hoosiers_football_team
+- [3] https://en.wikipedia.org/wiki/ 2011_Indiana_Hoosiers_football_team
+- [4] Laura Zepner, Pierre Karrasch, Felix Wiemann & Lars Bernard (2020) ClimateCharts.net – an interactive climate analysis web platform, International Journal of Digital Earth, DOI: 10.1080/17538947.2020.1829112

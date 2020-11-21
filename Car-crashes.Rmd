@@ -345,12 +345,25 @@ Figure 14. is for 2011, and this data is consistent with the overall years. For 
 
 After going through many graphics and some calculations, we can summarize the "trend" of accidents in Monroe county as:
 
-+ Accidents are likely to occur on October Friday afternoon. The peaked time is around 4 pm to 5 pm. 
-+ Most of the crashes are the collision between two cars. The primary factor that leads to the impact is "Failure to yield the right of way." 
+Accidents are likely to occur on October Friday, afternoon to evening. The peaked time is around 4 pm to 5 pm. 
+
+Most of the crashes are the collision between two cars. The primary factor that leads to the impact is "Failure to yield the right of way." 
+
+We tried to justify the reasons above, and one of the hypotheses we come up with is Football town: People rushing home to watch football and failed to yield the way to each other. 
+
+We looked at the games and found that in 2003, two matches were being held at Memorial Stadium in Bloomington, Indiana, in October [2]. In 2011, there were three matches [3]. But the games happened on Saturday when we find that most crashes happen on Fridays. And so we reject the "Football town" hypothesis.
 
 
-# Sources
-[1] https://en.wikipedia.org/wiki/Monroe_County,_Indiana
+![](climate-chart.png)
+Winter weather may be contributing as a factor causing the crashes. But look at the charts below: The average temperature for October is 12.9 degrees Celsius. The total average precipitations are 91 mm. So such phenomena as road icing, the wet road could not happen. Thus, we reject the weather hypothesis.
+
+As we mentioned in the results, we can categorize the factors of impact into three types: Human, vehicle, and environmental. As we clarified that the environment is not contributing to the accidents, we have two factors left: vehicle and human.
+
+We could not find a report about the car' issue that leads to accidents in Monroe county. And by the results above (Figure 12, 13, 14.), we can conclude that the main reason for most of the crashes is from the people. As residents' consciousness in traffic is problematic.
 
 
-
+## Sources
+- [1] https://en.wikipedia.org/wiki/Monroe_County,_Indiana
+- [2] https://en.wikipedia.org/wiki/2003_Indiana_Hoosiers_football_team
+- [3] https://en.wikipedia.org/wiki/2011_Indiana_Hoosiers_football_team
+- [4] Laura Zepner, Pierre Karrasch, Felix Wiemann & Lars Bernard (2020) ClimateCharts.net – an interactive climate analysis web platform, International Journal of Digital Earth, DOI: 10.1080/17538947.2020.1829112
